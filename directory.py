@@ -17,6 +17,7 @@ def getSupList(number: int) -> list[str]:
     for _ in range(number):
         sup.append(input('Super-directory name: '))
     print('\n\n')
+    v.incrementLine(3 + number)
     return sup
 
 
@@ -25,10 +26,12 @@ def getSubList(number: int) -> list[str]:
     sub: list[str] = []
     for _ in range(number):
         sub.append(input('Subdirectory name: '))
+    v.incrementLine(number)
     if (len(sub) - len(set(sub)) != 0):
         diff = len(sub) - len(set(sub))
         print("Some subdirectories won't be created")
         print(f"There were {diff} duplicates")
+        v.incrementLine(2)
         sub = list(set(sub)) # Removes duplicates
     return sub
 
@@ -39,20 +42,25 @@ def createFull(
     ) -> tuple[str, bool]:
 
     print('\n\n\nMAKING SUPER-DIRECTORIES...\n')
+    v.incrementLine(4)
     for folder in sup:
         print(f'Creating {path}...', end='')
         createIf(path := f'{path}\{folder}')
         print('[DONE]')
+    v.incrementLine(len(sup))
 
     print('\n\n\nMAKING REQUIRED FOLDER...', end='')
     createIf(path := f'{path}\{name}')
     print('[DONE]')
+    v.incrementLine(3)
 
     print('\n\n\nMAKING SUBDIRECTORIES...\n')
+    v.incrementLine(4)
     for folder in sub:
         print(f'Creating {path}\{folder}...', end='')
         createIf(f'{path}\{folder}')
         print('[DONE]')
+    v.incrementLine(len(sub))
 
     return (path, True)
 
@@ -67,6 +75,7 @@ def main() -> None:
     dept = int(input('How many subdirectories will your folder be in? '))
     sub = int(input('How many subdirectories will your folder contain? '))
     print('\n\n')
+    v.incrementLine(5)
     
     sup = getSupList(dept)
     sub = getSubList(sub)

@@ -1,6 +1,4 @@
 #usr/bin/env Python3
-import directory as d
-import exceptions as e
 import perform as p
 
 
