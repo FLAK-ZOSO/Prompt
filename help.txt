@@ -1,0 +1,6 @@
+You can invoke this command writing 'help' in the commands from any directory.
+
+COMMANDS:
+- help (this)
+- quit (aliases = ['close', 'end'])
+- directory
