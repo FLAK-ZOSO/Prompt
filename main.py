@@ -1,5 +1,4 @@
 #usr/bin/env Python3
-import exceptions as e
 import perform as p
 import variables as v
 
