@@ -1,6 +1,7 @@
 #usr/bin/env Python3
 import directory as d
 import exceptions as e
+import parsing as p
 import variables as v
 
 
@@ -9,6 +10,20 @@ def promptHelp() -> None:
         print(content := file.read())
     content = content.count('\n')
     v.incrementLine(content)
+
+
+def close(current_path: str) -> None:
+    if (current_path == v.getDefaultPath()):
+        return
+    print(
+        f'Do you want to have back {current_path} instead of {v.getDefaultPath()}' 
+        ' as your path for the next run? (y/n)'
+    )
+    if (p.answer(input(f'{v.getLine()}: {current_path}>'))):
+        v.currentPathAsDefault()
+    else:
+        print(f'The default path will remain {v.getDefaultPath()}')
+    v.incrementLine(1)
 
 
 global commands
@@ -31,6 +46,7 @@ def main() -> bool:
         commands[command]()
     except KeyError:
         if (command.lower() in ['quit', 'close', 'end']):
+            close(current_path)
             return True # The main.main function ends
     
     return False # The main.main function re-calls perform.main
