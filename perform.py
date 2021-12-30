@@ -58,6 +58,7 @@ def main() -> bool:
     command = input(f'{line_}: {current_path}> ')
 
     if (command == ''):
+        v.incrementLine(1)
         return False
 
     try: # Better ask for forgiveness than for permission
