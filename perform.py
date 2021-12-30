@@ -57,7 +57,7 @@ def main() -> bool:
 
     command = input(f'{line_}: {current_path}> ')
 
-    if (command == ''):
+    if (command == '' or command.isspace()):
         v.incrementLine(1)
         return False
 
