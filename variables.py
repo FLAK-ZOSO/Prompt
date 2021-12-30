@@ -16,6 +16,23 @@ def getDefaultPath() -> str:
         return d_p.read()
 
 
+def incrementLine(increment: int) -> None:
+    with open('line.txt', 'r') as line:
+        n = int(line.read())
+    with open('line.txt', 'w') as line:
+        line.write(str(n + increment))
+
+
+def resetLine() -> None:
+    print('Opening line.txt in write mode... ', end='')
+    with open('line.txt', 'w') as line:
+        print('[DONE]')
+        line.write('0'),
+        print('Closing line.txt... ', end='')
+    print('[DONE]\n')
+    incrementLine(3)
+
+
 def currentPathAsDefault() -> None:
     print('Opening default_path.txt in write mode... ', end='')
     with open('default_path.txt', 'w+') as default:
@@ -28,8 +45,8 @@ def currentPathAsDefault() -> None:
         print('[DONE]')
         print('Closing default_path.txt... ', end='')
     print('[DONE]')
-    print(f'Now the default path is {new}')
-    incrementLine(5)
+    print(f'Now the default path is {new}\n')
+    incrementLine(6)
 
 
 def defaultPathAsCurrent() -> None:
@@ -44,12 +61,5 @@ def defaultPathAsCurrent() -> None:
         print('[DONE]')
         print('Closing current_path.txt... ', end='')
     print('[DONE]')
-    print(f'Now the path is {d}')
-    incrementLine(5)
-
-
-def incrementLine(increment: int) -> None:
-    with open('line.txt', 'r') as line:
-        n = int(line.read())
-    with open('line.txt', 'w') as line:
-        line.write(str(n + increment))
+    print(f'Now the path is {d}\n')
+    incrementLine(6)

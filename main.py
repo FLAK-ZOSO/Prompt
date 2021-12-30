@@ -5,8 +5,7 @@ import variables as v
 
 def main():
     # Reset default values
-    with open('line.txt', 'w+') as line:
-        line.write('0')
+    v.resetLine()
     v.defaultPathAsCurrent()
 
     while (True):

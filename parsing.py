@@ -10,7 +10,7 @@ def answer(a: str) -> bool:
     else:
         print(
             f'''Your answer ({a}) was not valid.
-            This will be interpreted as a NO.'''
+            This will be interpreted as a NO.\n'''
         )
-        v.incrementLine(2)
+        v.incrementLine(3)
         return False
