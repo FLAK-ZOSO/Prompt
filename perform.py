@@ -51,13 +51,11 @@ commands = {
 
 
 def main() -> bool:
-    with open('current_path.txt', 'r') as current:
-        current_path = current.read()
-    with open('line.txt', 'r') as line:
-        line_ = line.read()
+    current_path = v.getCurrentPath()
+    line_ = v.getLine()
     global commands
 
-    command = input(f'{line_}: {current_path}>')
+    command = input(f'{line_}: {current_path}> ')
 
     try: # Better ask for forgiveness than for permission
         commands[command.split()[0].lower()](command)

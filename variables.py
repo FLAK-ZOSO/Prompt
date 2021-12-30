@@ -1,9 +1,6 @@
 #usr/bin/env Python3
 
 
-from io import IncrementalNewlineDecoder
-
-
 def getLine() -> int:
     with open('line.txt', 'r') as line:
         return int(line.read())
