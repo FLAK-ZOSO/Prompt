@@ -1,6 +1,9 @@
 #usr/bin/env Python3
 
 
+from io import IncrementalNewlineDecoder
+
+
 def getLine() -> int:
     with open('line.txt', 'r') as line:
         return int(line.read())
@@ -63,3 +66,16 @@ def defaultPathAsCurrent() -> None:
     print('[DONE]')
     print(f'Now the path is {d}\n')
     incrementLine(6)
+
+
+def customPathAsCurrent(new: str, verbose: bool=True) -> None:
+    if (verbose):
+        print('Opening current_path.txt in write mode... ', end='')
+    with open('current_path.txt', 'w') as current:
+        if (verbose):
+            print('[DONE]')
+            print('Closing current_path.txt... ', end='')
+        current.write(new)
+    if (verbose):
+        print('[DONE]')
+        incrementLine(2)

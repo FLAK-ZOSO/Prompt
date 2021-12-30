@@ -89,7 +89,7 @@ def openFolder(path: str) -> None:
     print('[DONE]')
 
 
-def main() -> None:
+def main(full_command: str=None) -> None:
     base_path = v.getCurrentPath()
     name = input('Name of the folder: ')
     dept = int(input('How many subdirectories will your folder be in? '))

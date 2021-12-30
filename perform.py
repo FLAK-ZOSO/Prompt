@@ -5,11 +5,27 @@ import parsing as p
 import variables as v
 
 
-def promptHelp() -> None:
+def promptHelp(full_command: str=None) -> None:
     with open('help.txt', 'r') as file:
         print(content := file.read())
     content = content.count('\n')
     v.incrementLine(content)
+
+
+def changePath(full_command: str) -> None:
+    try: #EAFP
+        new = full_command.split()[1]
+    except IndexError:
+        new = input('Specify a value for missing parameter (path): ')
+    print(f'Checking {new} path... ', end='')
+    if (new == v.getCurrentPath()):
+        print('[DONE]')
+        print(f'The {new} path was already selected. No action was performed.')
+    else:
+        print('[DONE]')
+        print(f'Selecting {new}... ', end='')
+        v.customPathAsCurrent(new)
+    v.incrementLine(2)
 
 
 def close(current_path: str) -> None:
@@ -29,7 +45,8 @@ def close(current_path: str) -> None:
 global commands
 commands = {
     'directory': d.main,
-    'help': promptHelp
+    'help': promptHelp,
+    'path': changePath
 }
 
 
@@ -43,9 +60,10 @@ def main() -> bool:
     command = input(f'{line_}: {current_path}>')
 
     try: # Better ask for forgiveness than for permission
-        commands[command]()
+        commands[command.split()[0].lower()](command)
+        command = command.split()[0].lower()
     except KeyError:
-        if (command.lower() in ['quit', 'close', 'end', 'exit']):
+        if (command in ['quit', 'close', 'end', 'exit']):
             close(current_path)
             return True # The main.main function ends
         elif (command == ''):
