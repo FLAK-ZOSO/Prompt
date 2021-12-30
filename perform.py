@@ -45,7 +45,7 @@ def main() -> bool:
     try: # Better ask for forgiveness than for permission
         commands[command]()
     except KeyError:
-        if (command.lower() in ['quit', 'close', 'end']):
+        if (command.lower() in ['quit', 'close', 'end', 'exit']):
             close(current_path)
             return True # The main.main function ends
         elif (command == ''):

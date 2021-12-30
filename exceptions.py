@@ -7,6 +7,15 @@ class PromptException(BaseException):
         super().__init__(message)
 
 
+class PromptPermissionError(PromptException):
+    '''
+    This is raised when the program performs an action which requires admin permissions
+    '''
+    def __init__(self, message: str) -> None:
+        print(message)
+        v.incrementLine(1)
+
+
 class DirectoryException(PromptException):
     '''
     This is raised when the user asks for an inexistent directory
@@ -42,3 +51,12 @@ class ArgumentTypeException(ArgumentException):
             A {expected_} was expected."""
         )
         v.incrementLine(2)
+
+
+class FolderPermissionError(PromptPermissionError):
+    '''
+    This is raised when the program performs an action on an existing directory
+    '''
+    def __init__(self, folder: str) -> None:
+        message = f"Prompt.py doesn't have the permission to create {folder}"
+        PromptPermissionError(message)

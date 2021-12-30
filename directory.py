@@ -1,4 +1,5 @@
 #usr/bin/env Python3
+import exceptions as e
 import os
 import subprocess
 import variables as v
@@ -12,15 +13,24 @@ def createIf(path: str) -> bool:
 
 
 def getSupList(number: int) -> list[str]:
+    if (number == 0):
+        return []
+    elif (number < 0):
+        number = -number
     print(f'Insert the ordered names of the {number} super-directories: ')
     sup: list[str] = []
     for _ in range(number):
         sup.append(input('Super-directory name: '))
     print('\n\n')
+    v.incrementLine(1 + number + 2)
     return sup
 
 
 def getSubList(number: int) -> list[str]:
+    if (number == 0):
+        return []
+    elif (number < 0):
+        number = -number
     print(f'Insert the names of the {number} subdrirectories: ')
     sub: list[str] = []
     for _ in range(number):
@@ -30,6 +40,8 @@ def getSubList(number: int) -> list[str]:
         print("Some subdirectories won't be created")
         print(f"There were {diff} duplicates")
         sub = list(set(sub)) # Removes duplicates
+        v.incrementLine(2)
+    v.incrementLine(1 + number)
     return sub
 
 
@@ -38,27 +50,43 @@ def createFull(
         sup: list[str], sub: list[str]
     ) -> tuple[str, bool]:
 
-    print('\n\n\nMAKING SUPER-DIRECTORIES...\n')
-    for folder in sup:
-        print(f'Creating {path}...', end='')
-        createIf(path := f'{path}\{folder}')
-        print('[DONE]')
+    if (sup):
+        print('\n\nMAKING SUPER-DIRECTORIES...\n')
+        for folder in sup:
+            print(f'Creating {path}\{folder}... ', end='')
+            if (createIf(path := f'{path}\{folder}')):
+                print('[DONE]')
+            else:
+                print('[FAILED]')
+                e.FolderPermissionError(f'{path}\{folder}')
+        v.incrementLine(4 + len(sup))
 
-    print('\n\n\nMAKING REQUIRED FOLDER...', end='')
-    createIf(path := f'{path}\{name}')
-    print('[DONE]')
-
-    print('\n\n\nMAKING SUBDIRECTORIES...\n')
-    for folder in sub:
-        print(f'Creating {path}\{folder}...', end='')
-        createIf(f'{path}\{folder}')
+    print('\n\nMAKING REQUIRED FOLDER... ', end='')
+    if (createIf(path := f'{path}\{name}')):
         print('[DONE]')
+    else:
+        print('[FAILED]')
+        e.FolderPermissionError(f'{path}\{name}')
+    v.incrementLine(3)
+
+    if (sub):
+        print('\n\nMAKING SUBDIRECTORIES...\n')
+        for folder in sub:
+            print(f'Creating {path}\{folder}... ', end='')
+            if (createIf(f'{path}\{folder}')):
+                print('[DONE]')
+            else:
+                print('[FAILED]')
+                e.FolderPermissionError(f'{path}\{folder}')
+        v.incrementLine(4 + len(sub))
 
     return (path, True)
 
 
 def openFolder(path: str) -> None:
+    print(f'Opening file explorer at {path} ', end='')
     subprocess.Popen(rf'explorer /select, "{path}"')
+    print('[DONE]')
 
 
 def main() -> None:
@@ -66,12 +94,14 @@ def main() -> None:
     name = input('Name of the folder: ')
     dept = int(input('How many subdirectories will your folder be in? '))
     sub = int(input('How many subdirectories will your folder contain? '))
-    print('\n\n')
-    v.incrementLine(5)
+    v.incrementLine(3)
+    if (dept or sub):
+        print('\n\n')
+        v.incrementLine(2)
     
     sup = getSupList(dept)
     sub = getSubList(sub)
-    path, worked = createFull(base_path, name, sup, sub)
+    path, _ = createFull(base_path, name, sup, sub)
     openFolder(path)
 
 
