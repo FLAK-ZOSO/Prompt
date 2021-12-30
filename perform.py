@@ -57,6 +57,9 @@ def main() -> bool:
 
     command = input(f'{line_}: {current_path}> ')
 
+    if (command == ''):
+        return False
+
     try: # Better ask for forgiveness than for permission
         commands[command.split()[0].lower()](command)
         command = command.split()[0].lower()
@@ -64,8 +67,6 @@ def main() -> bool:
         if (command in ['quit', 'close', 'end', 'exit']):
             close(current_path)
             return True # The main.main function ends
-        elif (command == ''):
-            pass
         else:
             e.CommandException(command)
         v.incrementLine(1)
