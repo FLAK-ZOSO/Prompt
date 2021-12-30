@@ -19,7 +19,7 @@ def close(current_path: str) -> None:
         f'Do you want to have back {current_path} instead of {v.getDefaultPath()}' 
         ' as your path for the next run? (y/n)'
     )
-    if (p.answer(input(f'{v.getLine()}: {current_path}>'))):
+    if (p.answer(input(f'{v.getLine()}: >'))):
         v.currentPathAsDefault()
     else:
         print(f'The default path will remain {v.getDefaultPath()}')
@@ -48,6 +48,11 @@ def main() -> bool:
         if (command.lower() in ['quit', 'close', 'end']):
             close(current_path)
             return True # The main.main function ends
+        elif (command == ''):
+            pass
+        else:
+            e.CommandException(command)
+        v.incrementLine(1)
     
     return False # The main.main function re-calls perform.main
 
