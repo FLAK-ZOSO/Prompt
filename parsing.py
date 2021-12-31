@@ -1,4 +1,5 @@
 #usr/bin/env Python3
+import expecting as e
 from typing import Any
 import variables as v
 
@@ -17,9 +18,14 @@ def answer(a: str) -> bool:
         return False
 
 
-def command(full_command: str) -> tuple[int, str]:
+def command(full_command: str) -> tuple[int, Any]:
     list_ = full_command.split()
+    print(list_)
     yield len(list_)-1
     command_name = list_[0]
-    for i in list_.remove(command_name):
-        yield i
+    if (list_.remove(command_name) != None):
+        for i in list_:
+            yield i
+    else:
+        for i in range(e.expecting()):
+            yield 0
