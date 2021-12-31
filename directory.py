@@ -91,7 +91,9 @@ def openFolder(path: str) -> None:
 
 
 def main(full_command: str) -> None:
-    arg, name, dept, sub = p.command(full_command)
+    arg, name, dept, sub = p.command(full_command, 4)
+    dept = int(dept)
+    sub = int(sub)
 
     base_path = v.getCurrentPath()
     if (not arg):
@@ -99,15 +101,16 @@ def main(full_command: str) -> None:
         dept = int(input('How many subdirectories will your folder be in? '))
         sub = int(input('How many subdirectories will your folder contain? '))
         v.incrementLine(3)
-    elif (not name):
-        name = input('Name of the folder: ')
-        v.incrementLine(1)
-    elif (not dept):
-        dept = int(input('How many subdirectories will your folder be in? '))
-        v.incrementLine(1)
-    elif (not sub):
-        sub = int(input('How many subdirectories will your folder contain? '))
-        v.incrementLine(1)
+    else:
+        if (not name):
+            name = input('Name of the folder: ')
+            v.incrementLine(1)
+        if (not dept):
+            dept = int(input('How many subdirectories will your folder be in? '))
+            v.incrementLine(1)
+        if (not sub):
+            sub = int(input('How many subdirectories will your folder contain? '))
+            v.incrementLine(1)
 
     if (dept or sub):
         print('\n\n')
