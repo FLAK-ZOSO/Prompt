@@ -16,13 +16,15 @@ def changePath(full_command: str) -> (bool | None):
         return False
     print('[DONE]')
     print(f'Checking if {new} and {v.getCurrentPath()} are different... ', end='')
-    if (new.upper() == v.getCurrentPath().upper()):
+    if (new.upper() == v.getCurrentPath().upper() 
+        or new.upper() == v.getCurrentPath().upper().removesuffix('\\')):
         print('[DONE]')
         print(f'The {new} path was already selected. No action was performed.')
     else:
         print('[DONE]')
         print(f'Selecting {new}... ', end='')
-        v.customPathAsCurrent(new)
+        v.customPathAsCurrent(new, False)
+        print('[DONE]')
     v.incrementLine(3)
 
 
