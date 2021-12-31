@@ -20,7 +20,8 @@ class DirectoryException(PromptException):
     '''
     This is raised when the user asks for an inexistent directory
     '''
-    def __init__(self, message: str) -> None:
+    def __init__(self, directory: str) -> None:
+        message = f"{directory} doesn't exist"
         super().__init__(message)
 
 
