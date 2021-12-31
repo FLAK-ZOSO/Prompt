@@ -1,14 +1,21 @@
 #usr/bin/env Python3
+import os
 import parsing as p
 import variables as v
 
 
-def changePath(full_command: str) -> None:
+def changePath(full_command: str) -> (bool | None):
     try: #EAFP
         new = full_command.split()[1]
     except IndexError:
         new = input('Specify a value for missing parameter (path): ')
-    print(f'Checking {new} path... ', end='')
+    print(f'Checking the existence of {new}... ', end='')
+    if (not os.path.exists(new)):
+        print('[FAILED]')
+        v.incrementLine(2)
+        return False
+    print('[DONE]')
+    print(f'Checking {new} and {v.getCurrentPath()} are different... ', end='')
     if (new == v.getCurrentPath()):
         print('[DONE]')
         print(f'The {new} path was already selected. No action was performed.')
@@ -16,7 +23,7 @@ def changePath(full_command: str) -> None:
         print('[DONE]')
         print(f'Selecting {new}... ', end='')
         v.customPathAsCurrent(new)
-    v.incrementLine(2)
+    v.incrementLine(3)
 
 
 def close(current_path: str) -> None:
