@@ -1,4 +1,13 @@
 #usr/bin/env Python3
+import json
+
+
+types = {
+    'bool': bool,
+    'float': float,
+    'int': int,
+    'str': str,
+}
 
 
 def getLine() -> int:
@@ -14,6 +23,18 @@ def getCurrentPath() -> str:
 def getDefaultPath() -> str:
     with open('default_path.txt', 'r') as d_p:
         return d_p.read()
+
+
+def getVerbose() -> bool:
+    with open('verbose.json', 'r') as verbose:
+        verbose = verbose.read()
+        if (type(json.loads(verbose)) == bool):
+            return json.loads(verbose)
+    with open('verbose.json', 'w') as verbose:
+        json.dump(True, verbose)
+        print('{The variable verbose was not bool-typed. It has been reset to True}')
+        incrementLine(1)
+        return True
 
 
 def incrementLine(increment: int) -> None:

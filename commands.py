@@ -1,4 +1,5 @@
 #usr/bin/env Python3
+import json
 import os
 import parsing as p
 import variables as v
@@ -18,12 +19,13 @@ def changePath(full_command: str) -> (bool | None):
     print(f'Checking if {new} and {v.getCurrentPath()} are different... ', end='')
     if (new.upper() == v.getCurrentPath().upper() 
         or new.upper() == v.getCurrentPath().upper().removesuffix('\\')):
-        print('[DONE]')
+        print('[DONE] [TRUE]')
         print(f'The {new} path was already selected. No action was performed.')
     else:
-        print('[DONE]')
+        print('[DONE] [FALSE]')
         print(f'Selecting {new}... ', end='')
-        v.customPathAsCurrent(new, False)
+        ver = v.getVerbose()
+        v.customPathAsCurrent(new, ver)
         print('[DONE]')
     v.incrementLine(3)
 
@@ -47,3 +49,42 @@ def promptHelp(full_command: str=None) -> None:
         print(content := file.read())
     content = content.count('\n')
     v.incrementLine(content)
+
+
+def setVar(full_command: str) -> None:
+    _, var, val, typ = p.command(full_command, 4)
+    if (not var):
+        var = input('Name of your variable: ')
+        v.incrementLine(1)
+    if (not val):
+        val = input('Value of your variable: ')
+        v.incrementLine(1)
+    if (not typ):
+        typ = input('Type of your variable: ')
+        v.incrementLine(1)
+
+    if (typ.lower() in v.types.keys()):
+        val = v.types[typ.lower()](val)
+    else:
+        print(f'Type {typ} not found')
+        typ = 'str'
+        val = str(val) # It was already a string
+        print('Type was set to default value: str')
+        v.incrementLine(2)
+
+    path = f'{var}.json'
+    print(f'Opening {path} in read mode... ', end='')
+    with open(path, 'r') as variable:
+        print('[DONE]')
+        before = json.load(variable)
+        print(f'Closing {path}... ', end='')
+    print('[DONE]')
+    print(f'Opening {path} in write mode... ', end='')
+    with open(path, 'w') as variable:
+        print('[DONE]')
+        json.dump(val, variable)
+        print(f'Closing {path}... ', end='')
+    print('[DONE]')
+    v.incrementLine(4)
+
+    print(f'Changed {before} to {val} in {path}')

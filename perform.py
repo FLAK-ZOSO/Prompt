@@ -7,10 +7,11 @@ import variables as v
 
 global commands
 commands = {
+    'cd': c.changePath,
     'directory': d.main,
     'help': c.promptHelp,
     'path': c.changePath,
-    'cd': c.changePath
+    'setvar': c.setVar
 }
 
 
