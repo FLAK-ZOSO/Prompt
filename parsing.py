@@ -1,4 +1,5 @@
 #usr/bin/env Python3
+from typing import Any
 import variables as v
 
 
@@ -14,3 +15,11 @@ def answer(a: str) -> bool:
         )
         v.incrementLine(3)
         return False
+
+
+def command(full_command: str) -> tuple[int, str]:
+    list_ = full_command.split()
+    yield len(list_)-1
+    command_name = list_[0]
+    for i in list_.remove(command_name):
+        yield i

@@ -1,6 +1,7 @@
 #usr/bin/env Python3
 import exceptions as e
 import os
+import parsing as p
 import subprocess
 import variables as v
 
@@ -89,12 +90,25 @@ def openFolder(path: str) -> None:
     print('[DONE]')
 
 
-def main(full_command: str=None) -> None:
+def main(full_command: str) -> None:
+    arg, name, dept, sub = p.command(full_command)
+
     base_path = v.getCurrentPath()
-    name = input('Name of the folder: ')
-    dept = int(input('How many subdirectories will your folder be in? '))
-    sub = int(input('How many subdirectories will your folder contain? '))
-    v.incrementLine(3)
+    if (not arg):
+        name = input('Name of the folder: ')
+        dept = int(input('How many subdirectories will your folder be in? '))
+        sub = int(input('How many subdirectories will your folder contain? '))
+        v.incrementLine(3)
+    elif (not name):
+        name = input('Name of the folder: ')
+        v.incrementLine(1)
+    elif (not dept):
+        dept = int(input('How many subdirectories will your folder be in? '))
+        v.incrementLine(1)
+    elif (not sub):
+        sub = int(input('How many subdirectories will your folder contain? '))
+        v.incrementLine(1)
+
     if (dept or sub):
         print('\n\n')
         v.incrementLine(2)
