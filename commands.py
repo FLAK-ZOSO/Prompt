@@ -15,8 +15,8 @@ def changePath(full_command: str) -> (bool | None):
         v.incrementLine(2)
         return False
     print('[DONE]')
-    print(f'Checking {new} and {v.getCurrentPath()} are different... ', end='')
-    if (new == v.getCurrentPath()):
+    print(f'Checking if {new} and {v.getCurrentPath()} are different... ', end='')
+    if (new.upper() == v.getCurrentPath().upper()):
         print('[DONE]')
         print(f'The {new} path was already selected. No action was performed.')
     else:

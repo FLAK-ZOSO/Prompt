@@ -9,7 +9,8 @@ global commands
 commands = {
     'directory': d.main,
     'help': c.promptHelp,
-    'path': c.changePath
+    'path': c.changePath,
+    'cd': c.changePath
 }
 
 
