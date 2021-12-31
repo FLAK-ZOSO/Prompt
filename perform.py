@@ -1,24 +1,13 @@
 #usr/bin/env Python3
 import commands as c
-import directory as d
 import exceptions as e
 import variables as v
-
-
-global commands
-commands = {
-    'cd': c.changePath,
-    'directory': d.main,
-    'help': c.promptHelp,
-    'path': c.changePath,
-    'setvar': c.setVar
-}
 
 
 def main() -> bool:
     current_path = v.getCurrentPath()
     line_ = v.getLine()
-    global commands
+    commands = c.commands
 
     command = input(f'{line_}: {current_path}> ')
 

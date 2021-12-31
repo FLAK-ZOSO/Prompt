@@ -51,7 +51,6 @@ def resetLine() -> None:
         line.write('0'),
         print('Closing line.txt... ', end='')
     print('[DONE]\n')
-    incrementLine(3)
 
 
 def currentPathAsDefault() -> None:

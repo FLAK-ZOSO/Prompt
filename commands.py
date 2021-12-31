@@ -1,4 +1,5 @@
 #usr/bin/env Python3
+import directory as d
 import json
 import os
 import parsing as p
@@ -73,18 +74,36 @@ def setVar(full_command: str) -> None:
         v.incrementLine(2)
 
     path = f'{var}.json'
-    print(f'Opening {path} in read mode... ', end='')
-    with open(path, 'r') as variable:
+    if (os.path.exists(path)):
+        print(f'Opening {path} in read mode... ', end='')
+        with open(path, 'r') as variable:
+            print('[DONE]')
+            before = json.load(variable)
+            print(f'Closing {path}... ', end='')
         print('[DONE]')
-        before = json.load(variable)
-        print(f'Closing {path}... ', end='')
-    print('[DONE]')
-    print(f'Opening {path} in write mode... ', end='')
-    with open(path, 'w') as variable:
+        print(f'Opening {path} in write mode... ', end='')
+        with open(path, 'w') as variable:
+            print('[DONE]')
+            json.dump(val, variable)
+            print(f'Closing {path}... ', end='')
         print('[DONE]')
-        json.dump(val, variable)
-        print(f'Closing {path}... ', end='')
-    print('[DONE]')
-    v.incrementLine(4)
+        v.incrementLine(4)
+        print(f'Changed {before} to {val} in {path}')
+    else:
+        print(f'[WARNING]: the requested variable was empty.')
+        print(f'Opening {path} in write mode... ', end='')
+        with open(path, 'w') as variable:
+            print('[DONE]')
+            json.dump(val, variable)
+            print(f'Closing {path}... ', end='')
+        print('[DONE]')
+        v.incrementLine(3)
 
-    print(f'Changed {before} to {val} in {path}')
+
+commands = {
+    'cd': changePath,
+    'directory': d.main,
+    'help': promptHelp,
+    'path': changePath,
+    'setvar': setVar
+}
