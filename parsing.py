@@ -18,17 +18,8 @@ def answer(a: str) -> bool:
 
 
 def command(full_command: str, expected: int) -> (tuple[int, Any] | None):
-    list_ = full_command.split()
-    
-    if (not len(list_)-1):
-        for i in range(4):
-            yield 0
-        return
-
-    yield len(list_)-1
-    command_name = list_[0]
-    if (list_.remove(command_name)):
-        for i in list_:
-            yield i
-    for i in range(expected - len(list_) - 1):
-        yield 0
+    _, *args = full_command.split()
+    yield len(args)
+    yield from args
+    for _ in range(expected - len(args) - 1):
+        yield False
