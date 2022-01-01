@@ -28,7 +28,7 @@ def changePath(full_command: str) -> (bool | None):
         print(f'The {new} path was already selected. No action was performed.')
     else:
         print('[DONE] [FALSE]')
-        print(f'Selecting {new}... ', end='')
+        print(f'Selecting {new}... ')
         v.customPathAsCurrent(new, v.getVerbose())
     v.incrementLine(3)
 
