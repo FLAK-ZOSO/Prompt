@@ -1,1 +1,3 @@
 setVar age 18 int
+echo Test
+setVar age 10 int

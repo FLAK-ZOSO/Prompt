@@ -1,5 +1,6 @@
 #usr/bin/env Python3
 import directory as d
+import exceptions as e
 import json
 import os
 import parsing as p
@@ -109,9 +110,19 @@ def run(full_command: str) -> None:
     _, path = p.command(full_command, 2)
     if (not path):
         path = input('Specify a value for missing argument (path): ')
+        v.incrementLine(1)
     path = p.path(path)
     if (not path.endswith('.txt')):
         path += '.txt'
+    print(f'Checking the existence of {path}... ', end='')
+    if (not os.path.exists(path)):
+        print('[DONE] [FALSE]')
+        v.incrementLine(1)
+        e.DirectoryException(path)
+        return
+    else:
+        print('[DONE] [TRUE]')
+        v.incrementLine(1)
     s.run(path)
 
 
