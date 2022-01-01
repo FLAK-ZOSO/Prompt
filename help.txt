@@ -1,7 +1,13 @@
 You can invoke this command writing 'help' in the commands from any directory.
 
 COMMANDS:
-- help (this)
-- quit (aliases = ['close', 'end', 'exit'])
-- directory
-- path
+- 'help' (this)
+- 'echo': ()
+- 'make': ()
+- 'path': (aliases = ['cd'])
+- 'run': (aliases = ['exe'])
+- 'setvar': (aliases = ['@'])
+- 'source': (aliases = ['makeSource'])
+
+COMPLEX COMMANDS:
+- 'directory' (storage = directory.py)

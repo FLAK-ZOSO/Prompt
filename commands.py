@@ -150,14 +150,35 @@ def makeFile(full_command: str) -> None:
         v.incrementLine(2)
 
 
+def makeSource(full_command: str) -> None:
+    _, path = p.command(full_command, 2)
+    makeFile(f'make {path}')
+    path = p.filePath(path)
+    print(f'Opening {path} in append mode... ', end='')
+    with open(path, 'a') as target:
+        print('[DONE]')
+        v.incrementLine(1)
+        for i in range(200): # 200 is the maximum of lines
+            line = input(f'{i}: ')
+            if (not line): # An empty line ends the command
+                target.write('line')
+                break
+            target.write(f'{line}\n')
+        print(f'Closing {path}... ', end='')
+    print('[DONE]')
+    v.incrementLine(1)
+
+
 commands = {
     'cd': changePath,
-    'make': makeFile,
     'directory': d.main, # Complex command stored in module directory
     'echo': echo,
     'help': promptHelp,
+    'make': makeFile,
+    'makesource': makeSource,
     'path': changePath,
     'run': run,
     'setvar': setVar,
+    'source': makeSource,
     '@': setVar
 }
