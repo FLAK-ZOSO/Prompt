@@ -9,7 +9,12 @@ def main():
     v.defaultPathAsCurrent()
 
     while (True):
-        if (p.main()):
+        if (v.getEcho()):
+            command = input(f'{v.getLine()}: {v.getCurrentPath()}> ')
+        else:
+            command = input()
+        v.incrementLine(1)
+        if (p.main(command)):
             break # If they use the command "quit"
 
 

@@ -1,4 +1,6 @@
 #usr/bin/env Python3
+import parsing as p
+import perform as pe
 import os
 import variables as v
 
@@ -10,8 +12,6 @@ def parse(path: str) -> list[str]:
 
 
 def run(path: str) -> None:
-    commands = 'cd D:\\Python\Python\Prompt | main.py'
     for line in parse(path):
-        commands += f' | {line}'
-    os.system(commands) # Doesn't work
-    v.incrementLine(1)
+        if (pe.main(line)):
+            return

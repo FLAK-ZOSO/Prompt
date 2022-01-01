@@ -4,16 +4,9 @@ import exceptions as e
 import variables as v
 
 
-def main() -> bool:
+def main(command: str) -> bool:
     current_path = v.getCurrentPath()
-    line_ = v.getLine()
     commands = c.commands
-
-    if (v.getEcho()):
-        command = input(f'{line_}: {current_path}> ')
-    else:
-        command = input()
-    v.incrementLine(1)
 
     if (command == '' or command.isspace()):
         return False

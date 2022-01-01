@@ -1,4 +1,6 @@
 #usr/bin/env Python3
+import pathlib as ptlb
+import re
 from typing import Any
 import variables as v
 
@@ -23,3 +25,10 @@ def command(full_command: str, expected: int) -> (tuple[int, Any] | None):
     yield from args
     for _ in range(expected - len(args) - 1):
         yield False
+
+
+def path(path_: str) -> str:
+    pattern = re.compile("^[A-Z]:\\.*$")
+    if (bool(pattern.match(path_))): # Absolute path
+        return str(ptlb.Path(path_).resolve())
+    return f'{v.getCurrentPath()}\{path_}' # Relative path

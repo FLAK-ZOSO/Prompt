@@ -12,6 +12,7 @@ def changePath(full_command: str) -> (bool | None):
         new = full_command.split()[1]
     except IndexError:
         new = input('Specify a value for missing parameter (path): ')
+    new = p.path(new)
     print(f'Checking the existence of {new}... ', end='')
     if (not os.path.exists(new)):
         print('[FAILED]')
@@ -26,9 +27,7 @@ def changePath(full_command: str) -> (bool | None):
     else:
         print('[DONE] [FALSE]')
         print(f'Selecting {new}... ', end='')
-        ver = v.getVerbose()
-        v.customPathAsCurrent(new, ver)
-        print('[DONE]')
+        v.customPathAsCurrent(new, v.getVerbose())
     v.incrementLine(3)
 
 
@@ -110,6 +109,7 @@ def run(full_command: str) -> None:
     _, path = p.command(full_command, 2)
     if (not path):
         path = input('Specify a value for missing argument (path): ')
+    path = p.path(path)
     if (not path.endswith('.txt')):
         path += '.txt'
     s.run(path)
