@@ -101,10 +101,15 @@ def setVar(full_command: str) -> None:
         v.incrementLine(3)
 
 
+def echo(full_command: str) -> None:
+    print(full_command.removeprefix('echo '))
+    v.incrementLine(1 + full_command.count('\n'))
+
+
 def run(full_command: str) -> None:
     _, path = p.command(full_command, 2)
     if (not path):
-        path = v.getCurrentPath()
+        path = input('Specify a value for missing argument (path): ')
     if (not path.endswith('.txt')):
         path += '.txt'
     s.run(path)
@@ -113,6 +118,7 @@ def run(full_command: str) -> None:
 commands = {
     'cd': changePath,
     'directory': d.main,
+    'echo': echo,
     'help': promptHelp,
     'path': changePath,
     'run': run,

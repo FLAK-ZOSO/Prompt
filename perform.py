@@ -9,10 +9,13 @@ def main() -> bool:
     line_ = v.getLine()
     commands = c.commands
 
-    command = input(f'{line_}: {current_path}> ')
+    if (v.getEcho()):
+        command = input(f'{line_}: {current_path}> ')
+    else:
+        command = input()
+    v.incrementLine(1)
 
     if (command == '' or command.isspace()):
-        v.incrementLine(1)
         return False
 
     try: # Better ask for forgiveness than for permission

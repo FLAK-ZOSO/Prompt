@@ -37,6 +37,11 @@ def getVerbose() -> bool:
         return True
 
 
+def getEcho() -> bool:
+    with open('echo.json', 'r') as echo:
+        return json.load(echo)
+
+
 def incrementLine(increment: int) -> None:
     with open('line.txt', 'r') as line:
         n = int(line.read())
