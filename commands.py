@@ -14,7 +14,6 @@ def changePath(full_command: str) -> (bool | None):
     except IndexError:
         new = input('Specify a value for missing parameter (path): ')
     new = p.path(new)
-    new = p.capitalizePath(new)
     print(f'Checking the existence of {new}... ', end='')
     if (not os.path.exists(new)):
         print('[FAILED]')
@@ -138,9 +137,23 @@ def run(full_command: str) -> None:
     s.run(path)
 
 
+def makeFile(full_command: str) -> None:
+    _, path = p.command(full_command, 2)
+    path = p.filePath(path)
+    print(f'Checking the existence of {path}... ', end='')
+    if (d.createFileIf(path)):
+        print('[DONE] [FALSE]')
+        v.incrementLine(1)
+    else:
+        print('[DONE] [TRUE]')
+        print(f'[WARNING] {path} was already existing')
+        v.incrementLine(2)
+
+
 commands = {
     'cd': changePath,
-    'directory': d.main,
+    'make': makeFile,
+    'directory': d.main, # Complex command stored in module directory
     'echo': echo,
     'help': promptHelp,
     'path': changePath,

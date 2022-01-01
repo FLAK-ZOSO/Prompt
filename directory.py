@@ -1,4 +1,5 @@
 #usr/bin/env Python3
+from genericpath import isfile
 import exceptions as e
 import os
 import parsing as p
@@ -9,6 +10,14 @@ import variables as v
 def createIf(path: str) -> bool:
     if (not os.path.exists(path)):
         os.mkdir(path)
+        return True
+    return False
+
+
+def createFileIf(path: str) -> bool:
+    if (not isfile(path)):
+        with open(path, 'w'):
+            pass
         return True
     return False
 
