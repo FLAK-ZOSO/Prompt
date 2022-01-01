@@ -6,6 +6,7 @@ import variables as v
 def main():
     # Reset default values
     v.resetLine()
+    v.resetEcho()
     v.defaultPathAsCurrent()
 
     while (True):

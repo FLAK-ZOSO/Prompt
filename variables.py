@@ -57,6 +57,17 @@ def resetLine() -> None:
         line.write('0'),
         print('Closing line.txt... ', end='')
     print('[DONE]\n')
+    incrementLine(3)
+
+
+def resetEcho() -> None:
+    print('Opening echo.json in write mode... ', end='')
+    with open('echo.json', 'w') as line:
+        print('[DONE]')
+        json.dump(True, line)
+        print('Closing echo.json... ', end='')
+    print('[DONE]\n')
+    incrementLine(3)
 
 
 def currentPathAsDefault() -> None:

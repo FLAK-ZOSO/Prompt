@@ -64,7 +64,7 @@ def setVar(full_command: str) -> None:
     if (not typ):
         typ = input('Type of your variable: ')
         v.incrementLine(1)
-
+    
     if (typ.lower() in v.types.keys()):
         val = v.types[typ.lower()](val)
     else:
