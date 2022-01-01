@@ -27,8 +27,25 @@ def command(full_command: str, expected: int) -> (tuple[int, Any] | None):
         yield False
 
 
+def capitalizePath(path: str) -> str:
+    path = list(path)
+    path[0] = path[0].upper()
+    for i in range(len(path)):
+        if (path[i] == '\\'):
+            try:
+                path[i+1] = path[i+1].upper()
+            except IndexError:
+                break
+    return ''.join(path)
+
+
 def path(path_: str) -> str:
     pattern = re.compile("^[A-Z]:\\.*$")
-    if (bool(pattern.match(path_))): # Absolute path
+    if (bool(pattern.match(path_)) or memoryUnit(path_)): # Absolute path
         return str(ptlb.Path(path_).resolve())
     return f'{v.getCurrentPath()}\{path_}' # Relative path
+
+
+def memoryUnit(path: str) -> bool:
+    pattern = re.compile("^[A-Z]:\\\\$")
+    return bool(pattern.match(path))

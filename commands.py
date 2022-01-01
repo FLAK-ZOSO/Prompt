@@ -14,6 +14,7 @@ def changePath(full_command: str) -> (bool | None):
     except IndexError:
         new = input('Specify a value for missing parameter (path): ')
     new = p.path(new)
+    new = p.capitalizePath(new)
     print(f'Checking the existence of {new}... ', end='')
     if (not os.path.exists(new)):
         print('[FAILED]')
