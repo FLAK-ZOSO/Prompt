@@ -1,7 +1,5 @@
 #usr/bin/env Python3
-import parsing as p
 import perform as pe
-import os
 import variables as v
 
 

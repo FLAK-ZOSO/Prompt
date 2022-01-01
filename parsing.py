@@ -1,5 +1,4 @@
 #usr/bin/env Python3
-import pathlib as ptlb
 import re
 from typing import Any
 import variables as v

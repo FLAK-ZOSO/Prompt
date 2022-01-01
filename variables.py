@@ -1,6 +1,5 @@
 #usr/bin/env Python3
 import json
-import parsing as p
 
 
 types = {
