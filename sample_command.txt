@@ -1,0 +1,1 @@
+setVar age 18 int

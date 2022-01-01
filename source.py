@@ -1,5 +1,6 @@
 #usr/bin/env Python3
 import os
+import variables as v
 
 
 def parse(path: str) -> list[str]:
@@ -13,3 +14,4 @@ def run(path: str) -> None:
     for line in parse(path):
         commands += f' | {line}'
     os.system(commands)
+    v.incrementLine(1)

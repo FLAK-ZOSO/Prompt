@@ -3,6 +3,7 @@ import directory as d
 import json
 import os
 import parsing as p
+import source as s
 import variables as v
 
 
@@ -100,10 +101,20 @@ def setVar(full_command: str) -> None:
         v.incrementLine(3)
 
 
+def run(full_command: str) -> None:
+    _, path = p.command(full_command, 2)
+    if (not path):
+        path = v.getCurrentPath()
+    if (not path.endswith('.txt')):
+        path += '.txt'
+    s.run(path)
+
+
 commands = {
     'cd': changePath,
     'directory': d.main,
     'help': promptHelp,
     'path': changePath,
+    'run': run,
     'setvar': setVar
 }
