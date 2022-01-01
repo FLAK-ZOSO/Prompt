@@ -67,6 +67,17 @@ def setVar(full_command: str) -> None:
         v.incrementLine(1)
     
     if (typ.lower() in v.types.keys()):
+        if (typ.lower() == 'bool'):
+            match (val.lower()):
+                case 'true':
+                    val = True
+                case 'false':
+                    val = False
+                case _:
+                    print(f'{val} cannot be interpreted as a boolean.')
+                    print('Value was set to default value: True')
+                    v.incrementLine(2)
+                    val = True
         val = v.types[typ.lower()](val)
     else:
         print(f'Type {typ} not found')
@@ -134,5 +145,6 @@ commands = {
     'help': promptHelp,
     'path': changePath,
     'run': run,
-    'setvar': setVar
+    'setvar': setVar,
+    '@': setVar
 }
