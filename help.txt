@@ -3,11 +3,14 @@ You can invoke this command writing 'help' in the commands from any directory.
 COMMANDS:
 - 'help' (this)
 - 'echo': ()
-- 'make': ()
+- 'makeDir': ()
+- 'makeFile': ()
 - 'path': (aliases = ['cd'])
 - 'run': (aliases = ['exe'])
-- 'setvar': (aliases = ['@'])
+- 'setVar': (aliases = ['@'])
 - 'source': (aliases = ['makeSource'])
 
+NOTE: Prompt.py isn't case-sensitive for commands' names, camelCase is used to increment readability
+
 COMPLEX COMMANDS:
-- 'directory' (storage = directory.py)
+- 'directory' (storage = directory.py) # Already imported

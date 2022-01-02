@@ -169,12 +169,26 @@ def makeSource(full_command: str) -> None:
     v.incrementLine(1)
 
 
+def makeDirectory(full_command: str) -> None:
+    _, path = p.command(full_command, 2)
+    path = p.path(path)
+    print(f'Checking if {path} exists... ', end='')
+    if (d.createIf(path)):
+        print(f'[DONE] [FALSE]')
+        print(f'Creating {path}... [DONE]')
+        v.incrementLine(2)
+    else:
+        print('[DONE] [TRUE]')
+        v.incrementLine(1)
+
+
 commands = {
     'cd': changePath,
     'directory': d.main, # Complex command stored in module directory
     'echo': echo,
     'help': promptHelp,
-    'make': makeFile,
+    'makedir': makeDirectory,
+    'makefile': makeFile,
     'makesource': makeSource,
     'path': changePath,
     'run': run,
