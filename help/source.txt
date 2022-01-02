@@ -1,0 +1,6 @@
+source <file-path: str> <{commands: str}> (aliases=['makeSource'])
+---------------------
+(This command gives no output except for the description of the execution)
+---------------------
+This is used to compile a source file
+NOTE: The inputs will end when an empty string is passed to input

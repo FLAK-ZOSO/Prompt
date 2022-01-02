@@ -1,0 +1,6 @@
+run <file-path: str>
+---------------------
+(This command gives the output specified by the commands in the specified source file)
+---------------------
+This is used to run a source file (.txt)
+NOTE: You can use both absolute and relative path
