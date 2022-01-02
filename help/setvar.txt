@@ -1,5 +1,8 @@
+
+
 setVar <variable-name: str> <value: Any> [type: type => str] (aliases=['@'])
----------------------
+
 (This command gives no output except for the description of the execution)
----------------------
+
 This is used to change a prompt's variable
+

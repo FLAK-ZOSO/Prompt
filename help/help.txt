@@ -1,3 +1,5 @@
+
+
 You can invoke this command writing 'help' in the commands from any directory.
 
 COMMANDS:
@@ -16,14 +18,13 @@ COMPLEX COMMANDS:
 NOTE: Prompt.py isn't case-sensitive for commands' names, camelCase is used in order to increment readability
 
 HELP:
-Command syntax: 
-help [command => (default='help')]
-Return syntax:
-'''
-command <compulsory-argument: type> [optional-argument: type => (default-value)] <{argument-taken-by-input: str}>
----------------------
-output
-'''
 
-NOTE: If you want help for a command that has aliases, please use the original name of the command
-      es. 'help setVar' is better than 'help @'
+help [command => (default='help')]
+
+command <compulsory-argument: type> [optional-argument: type => (default-value)] <{argument-taken-by-input: str}>
+output
+information about the command
+
+NOTE: If you want help for a command that has aliases, you MUST use the original name of the command
+es. 'help setVar' MUST be used instead of 'help @'
+

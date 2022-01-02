@@ -1,6 +1,9 @@
+
+
 path <path: str> (aliases=['cd'])
----------------------
+
 (This command gives no output except for the description of the execution)
----------------------
+
 This is used to select a directory (equivalent to DOS 'cd' command)
 NOTE: You can use both absolute and relative path
+

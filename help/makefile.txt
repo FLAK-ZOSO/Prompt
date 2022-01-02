@@ -1,6 +1,9 @@
+
+
 makeFile <file-path: str>
----------------------
+
 (This command gives no output except for the description of the execution)
----------------------
+
 This is used to create a text file
 NOTE: You can use both absolute and relative path
+

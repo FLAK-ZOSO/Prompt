@@ -1,5 +1,8 @@
+
+
 echo [output: str => ('echo')]
----------------------
+
 output
----------------------
+
 This is used to echo something to the command prompt, it's only useful if used in source files
+
