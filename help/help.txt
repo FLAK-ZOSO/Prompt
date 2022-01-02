@@ -1,0 +1,29 @@
+You can invoke this command writing 'help' in the commands from any directory.
+
+COMMANDS:
+- 'help' (this)
+- 'echo': ()
+- 'makeDir': ()
+- 'makeFile': ()
+- 'path': (aliases = ['cd'])
+- 'run': ()
+- 'setVar': (aliases = ['@'])
+- 'source': (aliases = ['makeSource'])
+
+COMPLEX COMMANDS:
+- 'directory' (storage = directory.py) # Already imported
+
+NOTE: Prompt.py isn't case-sensitive for commands' names, camelCase is used in order to increment readability
+
+HELP:
+Command syntax: 
+help [command => (default='help')]
+Return syntax:
+'''
+command <compulsory-argument: type> [optional-argument: type => (default-value)]
+---------------------
+output
+'''
+
+NOTE: If you want help for a command that has aliases, please use the original name of the command
+      es. 'help setVar' is better than 'help @'
