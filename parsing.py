@@ -40,8 +40,8 @@ def capitalizePath(path: str) -> str:
 
 def path(path_: str) -> str:
     pattern = re.compile("^[A-Z]:\\.*$")
-    if (bool(pattern.match(path_)) or memoryUnit(path_)): # Absolute path
-        return capitalizePath(path_)
+    if (bool(pattern.match(path_)) or memoryUnit(path_) or ':' in path_):
+        return capitalizePath(path_) # Absolute path
     return f'{v.getCurrentPath()}\{path_}' # Relative path
 
 
@@ -50,7 +50,7 @@ def memoryUnit(path: str) -> bool:
     return bool(pattern.match(path))
 
 
-def filePath(path_: str) -> str:
+def textFilePath(path_: str) -> str:
     if ('\\' in path_):    
         file = path_.split('\\')[-1]
         path_ = path_.removesuffix(f'\\{file}')

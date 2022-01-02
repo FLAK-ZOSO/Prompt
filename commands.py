@@ -139,7 +139,7 @@ def run(full_command: str) -> None:
 
 def makeFile(full_command: str) -> None:
     _, path = p.command(full_command, 2)
-    path = p.filePath(path)
+    path = p.textFilePath(path)
     print(f'Checking the existence of {path}... ', end='')
     if (d.createFileIf(path)):
         print('[DONE] [FALSE]')
@@ -153,7 +153,7 @@ def makeFile(full_command: str) -> None:
 def makeSource(full_command: str) -> None:
     _, path = p.command(full_command, 2)
     makeFile(f'make {path}')
-    path = p.filePath(path)
+    path = p.textFilePath(path)
     print(f'Opening {path} in append mode... ', end='')
     with open(path, 'a') as target:
         print('[DONE]')
