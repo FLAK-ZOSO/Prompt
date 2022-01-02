@@ -20,7 +20,6 @@ def main(command: str) -> bool:
             return True # The main.main function ends
         else:
             e.CommandException(command)
-        v.incrementLine(1)
     
     return False # The main.main function re-calls perform.main
 
