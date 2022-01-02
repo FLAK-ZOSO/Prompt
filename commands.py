@@ -47,7 +47,16 @@ def close(current_path: str) -> None:
 
 
 def promptHelp(full_command: str=None) -> None:
-    with open('help.txt', 'r') as file:
+    _, command = p.command(full_command, 2)
+    if (not command):
+        command = 'help'
+    if (command not in commands.keys()):
+        print(f'[ABORTED] {command} is not an existing command')
+        v.incrementLine(1)
+        return
+    command = command.lower()
+
+    with open(f'help/{command}.txt', 'r') as file:
         print(content := file.read())
     content = content.count('\n')
     v.incrementLine(content)
@@ -85,7 +94,7 @@ def setVar(full_command: str) -> None:
         print('Type was set to default value: str')
         v.incrementLine(2)
 
-    path = f'{var}.json'
+    path = f'var/{var}.json'
     if (os.path.exists(path)):
         print(f'Opening {path} in read mode... ', end='')
         with open(path, 'r') as variable:

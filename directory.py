@@ -26,7 +26,7 @@ def getSupList(number: int) -> list[str]:
     if (number == 0):
         return []
     elif (number < 0):
-        number = -number
+        number = 0
     print(f'Insert the ordered names of the {number} super-directories: ')
     sup: list[str] = []
     for _ in range(number):
@@ -40,7 +40,7 @@ def getSubList(number: int) -> list[str]:
     if (number == 0):
         return []
     elif (number < 0):
-        number = -number
+        number = 0
     print(f'Insert the names of the {number} subdrirectories: ')
     sub: list[str] = []
     for _ in range(number):

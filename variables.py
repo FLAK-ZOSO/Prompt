@@ -11,26 +11,26 @@ types = {
 
 
 def getLine() -> int:
-    with open('line.txt', 'r') as line:
+    with open('var/line.txt', 'r') as line:
         return int(line.read())
 
 
 def getCurrentPath() -> str:
-    with open('current_path.txt', 'r') as c_p:
+    with open('var/current_path.txt', 'r') as c_p:
         return c_p.read()
 
 
 def getDefaultPath() -> str:
-    with open('default_path.txt', 'r') as d_p:
+    with open('var/default_path.txt', 'r') as d_p:
         return d_p.read()
 
 
 def getVerbose() -> bool:
-    with open('verbose.json', 'r') as verbose:
+    with open('var/verbose.json', 'r') as verbose:
         verbose = verbose.read()
-        if (type(json.loads(verbose)) == bool):
+        if (isinstance(json.loads(verbose), bool)):
             return json.loads(verbose)
-    with open('verbose.json', 'w') as verbose:
+    with open('var/verbose.json', 'w') as verbose:
         json.dump(True, verbose)
         print('{The variable verbose was not bool-typed. It has been reset to True}')
         incrementLine(1)
@@ -38,20 +38,20 @@ def getVerbose() -> bool:
 
 
 def getEcho() -> bool:
-    with open('echo.json', 'r') as echo:
+    with open('var/echo.json', 'r') as echo:
         return json.load(echo)
 
 
 def incrementLine(increment: int) -> None:
-    with open('line.txt', 'r') as line:
+    with open('var/line.txt', 'r') as line:
         n = int(line.read())
-    with open('line.txt', 'w') as line:
+    with open('var/line.txt', 'w') as line:
         line.write(str(n + increment))
 
 
 def resetLine() -> None:
     print('Opening line.txt in write mode... ', end='')
-    with open('line.txt', 'w') as line:
+    with open('var/line.txt', 'w') as line:
         print('[DONE]')
         line.write('0'),
         print('Closing line.txt... ', end='')
@@ -61,7 +61,7 @@ def resetLine() -> None:
 
 def resetEcho() -> None:
     print('Opening echo.json in write mode... ', end='')
-    with open('echo.json', 'w') as line:
+    with open('var/echo.json', 'w') as line:
         print('[DONE]')
         json.dump(True, line)
         print('Closing echo.json... ', end='')
@@ -71,10 +71,10 @@ def resetEcho() -> None:
 
 def currentPathAsDefault() -> None:
     print('Opening default_path.txt in write mode... ', end='')
-    with open('default_path.txt', 'w+') as default:
+    with open('var/default_path.txt', 'w+') as default:
         print('[DONE]')
         print('Opening current_path.txt in read mode... ', end='')
-        with open('current_path.txt', 'r') as current:
+        with open('var/current_path.txt', 'r') as current:
             print('[DONE]')
             print('Closing current_path.txt... ', end='')
             default.write(new := current.read())
@@ -87,10 +87,10 @@ def currentPathAsDefault() -> None:
 
 def defaultPathAsCurrent() -> None:
     print('Opening current_path.txt in write mode... ', end='')
-    with open('current_path.txt', 'w+') as current:
+    with open('var/current_path.txt', 'w+') as current:
         print('[DONE]')
         print('Opening default_path.txt in read mode... ', end='')
-        with open('default_path.txt', 'r') as default:
+        with open('var/default_path.txt', 'r') as default:
             print('[DONE]')
             print('Closing default_path.txt... ', end='')
             current.write(d := default.read())
@@ -104,7 +104,7 @@ def defaultPathAsCurrent() -> None:
 def customPathAsCurrent(new: str, verbose: bool=True) -> None:
     if (verbose):
         print('Opening current_path.txt in write mode... ', end='')
-    with open('current_path.txt', 'w') as current:
+    with open('var/current_path.txt', 'w') as current:
         if (verbose):
             print('[DONE]')
             print('Closing current_path.txt... ', end='')
