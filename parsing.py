@@ -39,8 +39,10 @@ def capitalizePath(path: str) -> str:
 
 
 def path(path_: str) -> str:
-    pattern = re.compile("^[A-Z]:\\.*$")
-    if (bool(pattern.match(path_)) or memoryUnit(path_) or ':' in path_):
+    pattern1 = re.compile("^[A-Z]:\\.*$")
+    pattern2 = re.compile("^[A-Z]:\\\\.*$")
+    matches = bool(pattern1.match(path_) or pattern2.match(path_))
+    if (matches or memoryUnit(path_)):
         return capitalizePath(path_) # Absolute path
     return f'{v.getCurrentPath()}\{path_}' # Relative path
 
