@@ -20,7 +20,7 @@ Command syntax:
 help [command => (default='help')]
 Return syntax:
 '''
-command <compulsory-argument: type> [optional-argument: type => (default-value)]
+command <compulsory-argument: type> [optional-argument: type => (default-value)] <{argument-taken-by-input: str}>
 ---------------------
 output
 '''
