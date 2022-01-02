@@ -4,6 +4,7 @@ You can invoke this command writing 'help' in the commands from any directory.
 
 COMMANDS:
 - 'help' (this)
+- 'cls': ()
 - 'echo': ()
 - 'makeDir': ()
 - 'makeFile': ()

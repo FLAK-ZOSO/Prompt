@@ -191,8 +191,16 @@ def makeDirectory(full_command: str) -> None:
         v.incrementLine(1)
 
 
+def cleanScreen(full_command: str):
+    print('\n' * 10)
+    print('\n' * 10)
+    print('\n' * 10)
+    print('\n' * 10)
+
+
 commands = {
     'cd': changePath,
+    'cls': cleanScreen,
     'directory': d.main, # Complex command stored in module directory
     'echo': echo,
     'help': promptHelp,

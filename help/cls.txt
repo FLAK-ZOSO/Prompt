@@ -1,0 +1,8 @@
+
+
+cls
+
+(This command produces as output 50 newlines)
+
+This command is used to empty ('clean') the screen (equivalent to DOS 'cls' command)
+
