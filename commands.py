@@ -8,7 +8,7 @@ import source as s
 import variables as v
 
 
-def changePath(full_command: str) -> (bool | None):
+def changePath(full_command: str) -> bool:
     try: #EAFP
         new = full_command.split()[1]
     except IndexError:
@@ -30,6 +30,7 @@ def changePath(full_command: str) -> (bool | None):
         print(f'Selecting {new}... ')
         v.customPathAsCurrent(new, v.getVerbose())
     v.incrementLine(3)
+    return True
 
 
 def close(current_path: str) -> None:
@@ -196,11 +197,9 @@ def makeDirectory(full_command: str) -> None:
         v.incrementLine(1)
 
 
-def cleanScreen(full_command: str):
-    print('\n' * 10)
-    print('\n' * 10)
-    print('\n' * 10)
-    print('\n' * 10)
+def cleanScreen(full_command=None):
+    for _ in range(4):
+        print('\n' * 10)
 
 
 commands = {

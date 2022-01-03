@@ -15,7 +15,7 @@ def main(command: str) -> bool:
         commands[command.split()[0].lower()](command)
         command = command.split()[0].lower()
     except KeyError:
-        if (command in ['quit', 'close', 'end', 'exit']):
+        if (command in ['close', 'end', 'exit', 'quit']):
             c.close(current_path)
             return True # The main.main function ends
         else:

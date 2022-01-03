@@ -1,0 +1,9 @@
+
+
+close (aliases=['end', 'exit', 'quit'])
+
+(This command gives no output except for a possible question about adopting current path as default)
+
+This is used to interrupt the command Prompt. It won't ask for confirmation.
+NOTE: You can use both absolute and relative path
+

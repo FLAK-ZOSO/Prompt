@@ -53,10 +53,9 @@ def resetLine() -> None:
     print('Opening line.txt in write mode... ', end='')
     with open('var/line.txt', 'w') as line:
         print('[DONE]')
-        line.write('0'),
+        line.write('3'),
         print('Closing line.txt... ', end='')
     print('[DONE]\n')
-    incrementLine(3)
 
 
 def resetEcho() -> None:

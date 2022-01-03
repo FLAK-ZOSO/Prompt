@@ -7,20 +7,18 @@ import variables as v
 def answer(a: str) -> bool:
     if (a.lower() in ['y', 'yes']):
         return True
-    elif (a.lower() in ['n', 'no']):
-        return False
-    else:
+    elif (a.lower() not in ['n', 'no']):
         print(
             f'''Your answer ({a}) was not valid.
             This will be interpreted as a NO.\n'''
         )
         v.incrementLine(3)
-        return False
+    return False
 
 
 def command(full_command: str, expected: int) -> (tuple[int, Any] | None):
-    _, *args = full_command.split()
-    yield len(args)
+    cmd, *args = full_command.split()
+    yield cmd
     yield from args
     for _ in range(expected - len(args) - 1):
         yield False
@@ -48,8 +46,12 @@ def path(path_: str) -> str:
 
 
 def memoryUnit(path: str) -> bool:
-    pattern = re.compile("^[A-Z]:\\\\$")
-    return bool(pattern.match(path))
+    patterns = [
+        re.compile("^[A-Z]:\\\\$"),
+        re.compile("^[A-Z]:\\$"),
+        re.compile("^[A-Z]:$")
+    ]
+    return any([pat.match(path) for pat in patterns])
 
 
 def textFilePath(path_: str) -> str:
