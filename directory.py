@@ -1,4 +1,4 @@
-#usr/bin/env Python3
+#!/usr/bin/env Python3
 from genericpath import isfile
 import exceptions as e
 import os

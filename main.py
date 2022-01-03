@@ -1,4 +1,4 @@
-#usr/bin/env Python3
+#!/usr/bin/env Python3
 import perform as p
 import variables as v
 
