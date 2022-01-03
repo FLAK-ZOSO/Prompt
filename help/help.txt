@@ -9,6 +9,7 @@ COMMANDS:
 - 'echo': ()
 - 'makeDir': ()
 - 'makeFile': ()
+- 'move': ()
 - 'path': (aliases = ['cd'])
 - 'run': ()
 - 'setVar': (aliases = ['@'])

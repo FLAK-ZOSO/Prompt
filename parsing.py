@@ -65,3 +65,9 @@ def textFilePath(path_: str) -> str:
     if (not path_.endswith('.txt')):
         path_ += '.txt'
     return path_
+
+
+def removeLastFromPath(path_: str) -> str:
+    path_ = path_.split('\\')
+    file = path_[-1]
+    return '\\'.join(path_).removesuffix(f'\\{file}')

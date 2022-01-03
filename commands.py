@@ -4,6 +4,7 @@ import exceptions as e
 import json
 import os
 import parsing as p
+import shutil as sh
 import source as s
 import variables as v
 
@@ -197,9 +198,34 @@ def makeDirectory(full_command: str) -> None:
         v.incrementLine(1)
 
 
-def cleanScreen(full_command=None):
+def cleanScreen(full_command=None) -> None:
     for _ in range(4):
         print('\n' * 10)
+
+
+def moveFolder(full_command: str) -> None:
+    _, f, new = p.command(full_command, 3)
+    f = f if f else input('Insert missing argument (file/folder): ')
+    new = new if new else input('Insert missing argument (new-path): ')
+
+    f_ = p.path(f)
+    if (os.path.exists(new)):
+        new = p.path(new)
+    else:
+        e.DirectoryException(new)
+        return
+
+    if (os.path.exists(f_)):
+        des = f'{new}\\{f}'
+        des_ = p.removeLastFromPath(des)
+        print(f'Creating {des}... ', end='') if d.createIf(des_) else None
+        print('[DONE]')
+        print(f'Moving everything to {des}... ', end='')
+        sh.move(f_, des)
+        print('[DONE]')
+        v.incrementLine(2)
+    else:
+        e.DirectoryException(f_)
 
 
 commands = {
@@ -211,6 +237,7 @@ commands = {
     'makedir': makeDirectory,
     'makefile': makeFile,
     'makesource': makeSource,
+    'move': moveFolder,
     'path': changePath,
     'run': run,
     'setvar': setVar,
