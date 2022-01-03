@@ -161,6 +161,9 @@ def makeFile(full_command: str) -> None:
 
 def makeSource(full_command: str) -> None:
     _, path = p.command(full_command, 2)
+    if (not path):
+        path = input('Insert missing argument (path): ')
+
     makeFile(f'make {path}')
     path = p.textFilePath(path)
     print(f'Opening {path} in append mode... ', end='')
@@ -170,7 +173,7 @@ def makeSource(full_command: str) -> None:
         for i in range(200): # 200 is the maximum of lines
             line = input(f'{i}: ')
             if (not line): # An empty line ends the command
-                target.write('line')
+                target.write('\n')
                 break
             target.write(f'{line}\n')
         print(f'Closing {path}... ', end='')
@@ -180,6 +183,8 @@ def makeSource(full_command: str) -> None:
 
 def makeDirectory(full_command: str) -> None:
     _, path = p.command(full_command, 2)
+    if (not path):
+        path = input('Insert missing argument (path): ')
     path = p.path(path)
     print(f'Checking if {path} exists... ', end='')
     if (d.createIf(path)):
