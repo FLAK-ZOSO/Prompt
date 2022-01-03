@@ -100,14 +100,11 @@ def defaultPathAsCurrent() -> None:
     incrementLine(6)
 
 
-def customPathAsCurrent(new: str, verbose: bool=True) -> None:
-    if (verbose):
-        print('Opening current_path.txt in write mode... ', end='')
+def customPathAsCurrent(new: str) -> None:
+    print('Opening current_path.txt in write mode... ', end='')
     with open('var/current_path.txt', 'w') as current:
-        if (verbose):
-            print('[DONE]')
-            print('Closing current_path.txt... ', end='')
-        current.write(new)
-    if (verbose):
         print('[DONE]')
-        incrementLine(2)
+        print('Closing current_path.txt... ', end='')
+        current.write(new)
+    print('[DONE]')
+    incrementLine(2)

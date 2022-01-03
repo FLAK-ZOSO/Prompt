@@ -28,7 +28,7 @@ def changePath(full_command: str) -> bool:
     else:
         print('[DONE] [FALSE]')
         print(f'Selecting {new}... ')
-        v.customPathAsCurrent(new, v.getVerbose())
+        v.customPathAsCurrent(new)
     v.incrementLine(3)
     return True
 
