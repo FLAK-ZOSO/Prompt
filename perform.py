@@ -1,4 +1,4 @@
-#usr/bin/env Python3
+#!usr/bin/env Python3
 import commands as c
 import exceptions as e
 import variables as v

@@ -1,4 +1,4 @@
-#usr/bin/env Python3
+#!usr/bin/env Python3
 import re
 from typing import Any
 import variables as v
