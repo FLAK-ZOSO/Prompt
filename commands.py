@@ -227,12 +227,21 @@ def moveFolder(full_command: str) -> None:
         e.DirectoryException(f_)
 
 
+def loop(full_command: str):
+    _, repetitions, path = p.command(full_command, 3)
+    try:
+        [run(f'run {path}') for _ in range(int(repetitions))]
+    except RecursionError:
+        print(f'[ABORT] Too many recursive calls occurred')
+
+
 commands = {
     'cd': changePath,
     'cls': cleanScreen,
     'directory': d.main, # Complex command stored in module directory
     'echo': echo,
     'help': promptHelp,
+    'loop': loop,
     'makedir': makeDirectory,
     'makefile': makeFile,
     'makesource': makeSource,

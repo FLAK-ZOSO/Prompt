@@ -1,0 +1,8 @@
+
+
+loop <repetitions: int> <source: str>
+
+(This command gives no output except for the description of the execution of the source file)
+
+This is used to run a specified amount of times a source file
+
