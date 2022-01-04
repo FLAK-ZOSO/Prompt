@@ -18,7 +18,6 @@ def changePath(full_command: str) -> bool:
     print(f'Checking the existence of {new}... ', end='')
     if (not os.path.exists(new)):
         print('[FAILED]')
-        v.incrementLine(2)
         return False
     print('[DONE]')
     print(f'Checking if {new} and {v.getCurrentPath()} are different... ', end='')
@@ -30,7 +29,6 @@ def changePath(full_command: str) -> bool:
         print('[DONE] [FALSE]')
         print(f'Selecting {new}... ')
         v.customPathAsCurrent(new)
-    v.incrementLine(3)
     return True
 
 
@@ -41,11 +39,10 @@ def close(current_path: str) -> None:
         f'Do you want to have back {current_path} instead of {v.getDefaultPath()}' 
         ' as your path for the next run? (y/n)'
     )
-    if (p.answer(input(f'{v.getLine()}: >'))):
+    if (p.answer(input('> '))):
         v.currentPathAsDefault()
     else:
         print(f'The default path will remain {v.getDefaultPath()}')
-    v.incrementLine(1)
 
 
 def promptHelp(full_command: str=None) -> None:
@@ -54,27 +51,22 @@ def promptHelp(full_command: str=None) -> None:
         command = 'help'
     if (command not in commands.keys()):
         print(f'[ABORTED] {command} is not an existing command')
-        v.incrementLine(1)
         return
     command = command.lower()
 
     with open(f'help/{command}.txt', 'r') as file:
         print(content := file.read())
     content = content.count('\n')
-    v.incrementLine(content)
 
 
 def setVar(full_command: str) -> None:
     _, var, val, typ = p.command(full_command, 4)
     if (not var):
         var = input('Name of your variable: ')
-        v.incrementLine(1)
     if (not val):
         val = input('Value of your variable: ')
-        v.incrementLine(1)
     if (not typ):
         typ = input('Type of your variable: ')
-        v.incrementLine(1)
     
     if (typ.lower() in v.types.keys()):
         if (typ.lower() == 'bool'):
@@ -86,7 +78,6 @@ def setVar(full_command: str) -> None:
                 case _:
                     print(f'{val} cannot be interpreted as a boolean.')
                     print('Value was set to default value: True')
-                    v.incrementLine(2)
                     val = True
         val = v.types[typ.lower()](val)
     else:
@@ -94,7 +85,6 @@ def setVar(full_command: str) -> None:
         typ = 'str'
         val = str(val) # It was already a string
         print('Type was set to default value: str')
-        v.incrementLine(2)
 
     path = f'var/{var}.json'
     if (os.path.exists(path)):
@@ -110,7 +100,6 @@ def setVar(full_command: str) -> None:
             json.dump(val, variable)
             print(f'Closing {path}... ', end='')
         print('[DONE]')
-        v.incrementLine(4)
         print(f'Changed {before} to {val} in {path}')
     else:
         print(f'[WARNING] the requested variable was empty.')
@@ -120,31 +109,26 @@ def setVar(full_command: str) -> None:
             json.dump(val, variable)
             print(f'Closing {path}... ', end='')
         print('[DONE]')
-        v.incrementLine(3)
 
 
 def echo(full_command: str) -> None:
     print(full_command.removeprefix('echo '))
-    v.incrementLine(1 + full_command.count('\n'))
 
 
 def run(full_command: str) -> None:
     _, path = p.command(full_command, 2)
     if (not path):
         path = input('Specify a value for missing argument (path): ')
-        v.incrementLine(1)
     path = p.path(path)
     if (not path.endswith('.txt')):
         path += '.txt'
     print(f'Checking the existence of {path}... ', end='')
     if (not os.path.exists(path)):
         print('[DONE] [FALSE]')
-        v.incrementLine(1)
         e.DirectoryException(path)
         return
     else:
         print('[DONE] [TRUE]')
-        v.incrementLine(1)
     s.run(path)
 
 
@@ -154,11 +138,9 @@ def makeFile(full_command: str) -> None:
     print(f'Checking the existence of {path}... ', end='')
     if (d.createFileIf(path)):
         print('[DONE] [FALSE]')
-        v.incrementLine(1)
     else:
         print('[DONE] [TRUE]')
         print(f'[WARNING] {path} was already existing')
-        v.incrementLine(2)
 
 
 def makeSource(full_command: str) -> None:
@@ -171,7 +153,6 @@ def makeSource(full_command: str) -> None:
     print(f'Opening {path} in append mode... ', end='')
     with open(path, 'a') as target:
         print('[DONE]')
-        v.incrementLine(1)
         for i in range(200): # 200 is the maximum of lines
             line = input(f'{i}: ')
             if (not line): # An empty line ends the command
@@ -180,7 +161,6 @@ def makeSource(full_command: str) -> None:
             target.write(f'{line}\n')
         print(f'Closing {path}... ', end='')
     print('[DONE]')
-    v.incrementLine(1)
 
 
 def makeDirectory(full_command: str) -> None:
@@ -192,10 +172,8 @@ def makeDirectory(full_command: str) -> None:
     if (d.createIf(path)):
         print(f'[DONE] [FALSE]')
         print(f'Creating {path}... [DONE]')
-        v.incrementLine(2)
     else:
         print('[DONE] [TRUE]')
-        v.incrementLine(1)
 
 
 def cleanScreen(full_command=None) -> None:
@@ -222,7 +200,6 @@ def moveFolder(full_command: str) -> None:
         print(f'Moving everything to {des}... ', end='')
         sh.move(f_, des)
         print('[DONE]')
-        v.incrementLine(2)
     else:
         e.DirectoryException(f_)
 

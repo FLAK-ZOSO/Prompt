@@ -12,7 +12,6 @@ def answer(a: str) -> bool:
             f'''Your answer ({a}) was not valid.
             This will be interpreted as a NO.\n'''
         )
-        v.incrementLine(3)
     return False
 
 
