@@ -1,5 +1,4 @@
 #!/usr/bin/env Python3
-import variables as v
 
 
 class PromptException(BaseException):
@@ -13,7 +12,6 @@ class PromptPermissionError(PromptException):
     '''
     def __init__(self, message: str) -> None:
         print(message)
-        v.incrementLine(1)
 
 
 class DirectoryException(PromptException):
@@ -22,7 +20,6 @@ class DirectoryException(PromptException):
     '''
     def __init__(self, directory: str) -> None:
         print(message := f"{directory} doesn't exist")
-        v.incrementLine(1)
         super().__init__(message)
 
 
@@ -32,7 +29,6 @@ class CommandException(PromptException):
     '''
     def __init__(self, command: str) -> None:
         print(f"The {command} command doesn't exist")
-        v.incrementLine(1)
 
 
 class ArgumentException(PromptException):
@@ -52,7 +48,6 @@ class ArgumentTypeException(ArgumentException):
             f"""You inserted a {type_}-type variable. 
             A {expected_} was expected."""
         )
-        v.incrementLine(2)
 
 
 class FolderPermissionError(PromptPermissionError):
