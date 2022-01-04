@@ -29,6 +29,6 @@ command <compulsory-argument: type> [optional-argument: type => (default-value)]
 output
 information about the command
 
-NOTE: If you want help for a command that has aliases, you MUST use the original name of the command
-es. 'help setVar' MUST be used instead of 'help @'
+NOTE: If you want help for a command that has aliases, you should use the original name of the command
+es. 'help setVar' should be used instead of 'help @'
 

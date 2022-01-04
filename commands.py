@@ -49,14 +49,16 @@ def promptHelp(full_command: str=None) -> None:
     _, command = p.command(full_command, 2)
     if (not command):
         command = 'help'
+    command = command.lower()
     if (command not in commands.keys()):
         print(f'[ABORTED] {command} is not an existing command')
         return
-    command = command.lower()
-
-    with open(f'help/{command}.txt', 'r') as file:
-        print(content := file.read())
-    content = content.count('\n')
+    if (os.path.exists(f'help/{command}.txt')):
+        with open(f'help/{command}.txt', 'r') as file:
+            print(file.read())
+    else:
+        with open(f'help/{synonims[command]}.txt', 'r') as file:
+            print(file.read())
 
 
 def setVar(full_command: str) -> None:
@@ -228,4 +230,14 @@ commands = {
     'setvar': setVar,
     'source': makeSource,
     '@': setVar
+}
+
+
+synonims = {
+    'cd': 'path',
+    'end': 'close',
+    'exit': 'close',
+    'quit': 'close',
+    'makesource': 'source',
+    '@': 'setvar',
 }
