@@ -1,6 +1,6 @@
 
 
-source <file-path: str> <{commands: str}> (aliases=['makeSource'])
+source <file: str> <{commands: str}> (aliases=['makeSource'])
 
 (This command gives no output except for the description of the execution)
 

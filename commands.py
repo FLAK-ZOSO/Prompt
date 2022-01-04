@@ -113,7 +113,7 @@ def setVar(full_command: str) -> None:
         v.incrementLine(4)
         print(f'Changed {before} to {val} in {path}')
     else:
-        print(f'[WARNING]: the requested variable was empty.')
+        print(f'[WARNING] the requested variable was empty.')
         print(f'Opening {path} in write mode... ', end='')
         with open(path, 'w') as variable:
             print('[DONE]')
@@ -164,7 +164,7 @@ def makeFile(full_command: str) -> None:
 def makeSource(full_command: str) -> None:
     _, path = p.command(full_command, 2)
     if (not path):
-        path = input('Insert missing argument (path): ')
+        path = input('Insert missing argument (file-name): ')
 
     makeFile(f'make {path}')
     path = p.textFilePath(path)
@@ -218,8 +218,7 @@ def moveFolder(full_command: str) -> None:
     if (os.path.exists(f_)):
         des = f'{new}\\{f}'
         des_ = p.removeLastFromPath(des)
-        print(f'Creating {des}... ', end='') if d.createIf(des_) else None
-        print('[DONE]')
+        print(f'Creating {des}... [DONE]') if d.createIf(des_) else None
         print(f'Moving everything to {des}... ', end='')
         sh.move(f_, des)
         print('[DONE]')
