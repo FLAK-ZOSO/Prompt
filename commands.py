@@ -229,7 +229,10 @@ def moveFolder(full_command: str) -> None:
 
 def loop(full_command: str):
     _, repetitions, path = p.command(full_command, 3)
-    [run(f'run {path}') for _ in range(int(repetitions))]
+    try:
+        [run(f'run {path}') for _ in range(int(repetitions))]
+    except RecursionError:
+        print(f'[ABORT] Too many recursive calls occurred')
 
 
 commands = {
