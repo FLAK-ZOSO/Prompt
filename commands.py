@@ -227,7 +227,7 @@ def moveFolder(full_command: str) -> None:
         e.DirectoryException(f_)
 
 
-def loop(full_command: str):
+def loop(full_command: str) -> None:
     _, repetitions, path = p.command(full_command, 3)
     try:
         [run(f'run {path}') for _ in range(int(repetitions))]
