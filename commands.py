@@ -227,12 +227,18 @@ def moveFolder(full_command: str) -> None:
         e.DirectoryException(f_)
 
 
+def loop(full_command: str):
+    _, repetitions, path = p.command(full_command, 3)
+    [run(f'run {path}') for _ in range(int(repetitions))]
+
+
 commands = {
     'cd': changePath,
     'cls': cleanScreen,
     'directory': d.main, # Complex command stored in module directory
     'echo': echo,
     'help': promptHelp,
+    'loop': loop,
     'makedir': makeDirectory,
     'makefile': makeFile,
     'makesource': makeSource,
