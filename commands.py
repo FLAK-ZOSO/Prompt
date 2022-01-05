@@ -181,7 +181,7 @@ def makeDirectory(full_command: str) -> None:
     if (d.createIf(path)):
         o.done()
         o.false()
-        o.system(f'Created {path}')
+        o.system(f'Created {path}', '\n')
     else:
         o.done()
         o.true()
@@ -217,6 +217,11 @@ def moveFolder(full_command: str) -> None:
 
 def loop(full_command: str) -> None:
     _, repetitions, path = p.command(full_command, 3)
+    if (not repetitions):
+        repetitions = int(o.argument('Insert value for missing argument (repetitions): '))
+    if (not path):
+        path = o.argument('Insert value for missing argument (path): ')
+
     try:
         [run(f'run {path}') for _ in range(int(repetitions))]
     except RecursionError:

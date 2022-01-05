@@ -74,7 +74,7 @@ def defaultPathAsCurrent() -> None:
         o.done('\n')
         o.system('Closing current_path.txt... ')
     o.done('\n')
-    o.system(f'Now the path is {d}\n')
+    o.system(f'Now the path is {d}', '\n\n\n')
 
 
 def customPathAsCurrent(new: str) -> None:

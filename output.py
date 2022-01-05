@@ -6,7 +6,8 @@ def abort(message: str) -> None:
 
 
 def argument(message: str, end='') -> str:
-    return input(f'{Back.BLACK}{Fore.WHITE}[ARGUMENT] {message}{Style.RESET_ALL}{end}')
+    message = message.removesuffix(' ')
+    return input(f'{Back.MAGENTA}{Fore.WHITE}[ARGUMENT] {message}{Style.RESET_ALL} {end}')
 
 
 def documentation(message: str, end: str='\n') -> str:

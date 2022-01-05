@@ -15,7 +15,7 @@ def start() -> None:
     v.defaultPathAsCurrent()
     o.documentation(f'Documentation at {__documentation__}')
     o.documentation(f'Source code at {__code__}')
-    o.documentation(f'Prompt.py {__version__} by {__author__} is running...\n')
+    o.documentation(f'Prompt.py {__version__} by {__author__} is running...', '\n\n')
 
 
 def main() -> None:
