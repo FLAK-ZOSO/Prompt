@@ -18,7 +18,7 @@ def changePath(full_command: str) -> bool:
     new = p.path(new)
     o.system(f'Checking the existence of {new}... ')
     if (not os.path.exists(new)):
-        print('[FAILED]')
+        o.failed()
         return False
     o.done('\n')
     o.system(f'Checking if {new} and {v.getCurrentPath()} are different... ')
@@ -26,7 +26,7 @@ def changePath(full_command: str) -> bool:
         or new.upper() == v.getCurrentPath().upper().removesuffix('\\')):
         o.done()
         o.true()
-        print(f'The {new} path was already selected. No action was performed.')
+        o.system(f'The {new} path was already selected. No action was performed.')
     else:
         o.done()
         o.false()
