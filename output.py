@@ -2,7 +2,7 @@ from colorama import Back, Fore, Style
 
 
 def abort(message: str) -> None:
-    print(f'{Back.BLACK}{Fore.RED}[ABORT] {message}{Style.RESET_ALL}')
+    print(f'{Back.RED}{Fore.YELLOW}[ABORT] {message}{Style.RESET_ALL}')
 
 
 def argument(message: str, end='') -> str:
