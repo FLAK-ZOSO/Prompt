@@ -1,10 +1,8 @@
 
 
-You can invoke this command writing 'help' in the commands from any directory.
-
 COMMANDS:
 - 'help' (this)
-- 'close': ()
+- 'close': (aliases = ['end', 'exit', 'quit'])
 - 'cls': ()
 - 'echo': ()
 - 'loop': ()
@@ -28,7 +26,4 @@ help [command => (default='help')]
 command <compulsory-argument: type> [optional-argument: type => (default-value)] <{argument-taken-by-input: str}>
 output
 information about the command
-
-NOTE: If you want help for a command that has aliases, you should use the original name of the command
-es. 'help setVar' should be used instead of 'help @'
 
