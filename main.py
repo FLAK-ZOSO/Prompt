@@ -1,4 +1,5 @@
 #!/usr/bin/env Python3
+import output as o
 import perform as p
 import variables as v
 
@@ -12,9 +13,9 @@ def start() -> None:
     # Reset default values
     v.resetEcho()
     v.defaultPathAsCurrent()
-    print(f'Documentation at {__documentation__}')
-    print(f'Source code at {__code__}')
-    print(f'Prompt.py {__version__} by {__author__} is running...\n')
+    o.documentation(f'Documentation at {__documentation__}')
+    o.documentation(f'Source code at {__code__}')
+    o.documentation(f'Prompt.py {__version__} by {__author__} is running...\n')
 
 
 def main() -> None:

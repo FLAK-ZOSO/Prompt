@@ -1,6 +1,7 @@
 #!/usr/bin/env Python3
 import re
 from typing import Any
+import output as o
 import variables as v
 
 
@@ -8,10 +9,8 @@ def answer(a: str) -> bool:
     if (a.lower() in ['y', 'yes']):
         return True
     elif (a.lower() not in ['n', 'no']):
-        print(
-            f'''Your answer ({a}) was not valid.
-            This will be interpreted as a NO.\n'''
-        )
+        o.warn(f'Your answer ({a}) was not valid.')
+        o.warn('This will be interpreted as a NO.\n')
     return False
 
 
