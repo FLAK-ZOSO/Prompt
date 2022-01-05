@@ -1,5 +1,6 @@
 #!/usr/bin/env Python3
 import json
+import output as o
 
 
 types = {
@@ -27,7 +28,7 @@ def getVerbose() -> bool:
             return json.loads(verbose)
     with open('var/verbose.json', 'w') as verbose:
         json.dump(True, verbose)
-        print('{The variable verbose was not bool-typed. It has been reset to True}')
+        o.warn('The variable verbose was not bool-typed. It has been reset to True')
         return True
 
 
@@ -37,48 +38,49 @@ def getEcho() -> bool:
 
 
 def resetEcho() -> None:
-    print('Opening echo.json in write mode... ', end='')
+    o.system('Opening echo.json in write mode... ')
     with open('var/echo.json', 'w') as line:
-        print('[DONE]')
+        o.done('\n')
         json.dump(True, line)
-        print('Closing echo.json... ', end='')
-    print('[DONE]\n')
+        o.system('Closing echo.json... ')
+    o.done()
+    print('\n\n')
 
 
 def currentPathAsDefault() -> None:
-    print('Opening default_path.txt in write mode... ', end='')
+    o.system('Opening default_path.txt in write mode... ')
     with open('var/default_path.txt', 'w+') as default:
-        print('[DONE]')
-        print('Opening current_path.txt in read mode... ', end='')
+        o.done('\n')
+        o.system('Opening current_path.txt in read mode... ')
         with open('var/current_path.txt', 'r') as current:
-            print('[DONE]')
-            print('Closing current_path.txt... ', end='')
+            o.done('\n')
+            o.system('Closing current_path.txt... ')
             default.write(new := current.read())
-        print('[DONE]')
-        print('Closing default_path.txt... ', end='')
-    print('[DONE]')
-    print(f'Now the default path is {new}\n')
+        o.done('\n')
+        o.system('Closing default_path.txt... ')
+    o.done('\n')
+    o.system(f'Now the default path is {new}\n')
 
 
 def defaultPathAsCurrent() -> None:
-    print('Opening current_path.txt in write mode... ', end='')
+    o.system('Opening current_path.txt in write mode... ')
     with open('var/current_path.txt', 'w+') as current:
-        print('[DONE]')
-        print('Opening default_path.txt in read mode... ', end='')
+        o.done('\n')
+        o.system('Opening default_path.txt in read mode... ')
         with open('var/default_path.txt', 'r') as default:
-            print('[DONE]')
-            print('Closing default_path.txt... ', end='')
+            o.done('\n')
+            o.system('Closing default_path.txt... ')
             current.write(d := default.read())
-        print('[DONE]')
-        print('Closing current_path.txt... ', end='')
-    print('[DONE]')
-    print(f'Now the path is {d}\n')
+        o.done('\n')
+        o.system('Closing current_path.txt... ')
+    o.done('\n')
+    o.system(f'Now the path is {d}\n')
 
 
 def customPathAsCurrent(new: str) -> None:
-    print('Opening current_path.txt in write mode... ', end='')
+    o.system('Opening current_path.txt in write mode... ')
     with open('var/current_path.txt', 'w') as current:
-        print('[DONE]')
-        print('Closing current_path.txt... ', end='')
+        o.done('\n')
+        o.system('Closing current_path.txt... ')
         current.write(new)
-    print('[DONE]')
+    o.done('\n')

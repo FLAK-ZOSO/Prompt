@@ -5,28 +5,32 @@ def abort(message: str) -> None:
     print(f'{Back.BLACK}{Fore.RED}[ABORT] {message}{Style.RESET_ALL}')
 
 
-def error(message: str) -> None:
-    print(f'{Back.RED}{Fore.BLACK}[ERROR] {message}{Style.RESET_ALL}')
-
-
 def argument(message: str, end='') -> str:
     return input(f'{Back.BLACK}{Fore.WHITE}[ARGUMENT] {message}{Style.RESET_ALL}{end}')
 
 
-def question(message: str, end='') -> None:
-    print(f'{Back.BLACK}{Fore.WHITE}[QUESTION] {message}{Style.RESET_ALL}{end}')
+def documentation(message: str, end: str='\n') -> str:
+    return print(f'{Back.BLUE}{Fore.YELLOW}{message}{Style.RESET_ALL}', end=end)
+
+
+def error(message: str) -> None:
+    print(f'{Back.RED}{Fore.BLACK}[ERROR] {message}{Style.RESET_ALL}')
+
+
+def question(message: str, end: str='') -> None:
+    print(f'{Back.BLACK}{Fore.WHITE}[QUESTION] {message}{Style.RESET_ALL}{end}', end=end)
 
 
 def system(message: str, end: str=' ') -> None:
-    print(f'{Fore.CYAN}[SYSTEM] {message}{Style.RESET_ALL}{end}')
+    print(f'{Fore.CYAN}[SYSTEM] {message}{Style.RESET_ALL}', end=end)
 
 
 def warn(message: str) -> None:
-    print(f'{Fore.LIGHTYELLOW_EX}[WARNING] {message}{Style.RESET_ALL}')
+    print(f'{Fore.YELLOW}[WARNING] {message}{Style.RESET_ALL}')
 
 
 def done(end: str=' ') -> None:
-    print(f'{Back.WHITE}{Fore.BLACK}[DONE]{Style.RESET_ALL}{end}')
+    print(f'{Back.WHITE}{Fore.BLACK}[DONE]{Style.RESET_ALL}', end=end)
 
 
 def failed() -> None:
