@@ -76,9 +76,9 @@ def setVar(full_command: str) -> None:
     if (typ.lower() in v.types.keys()):
         if (typ.lower() == 'bool'):
             match (val.lower()):
-                case 'true':
+                case 'true' | 'on':
                     val = True
-                case 'false':
+                case 'false' | 'off':
                     val = False
                 case _:
                     o.warn(f'{val} cannot be interpreted as a boolean.')
@@ -90,6 +90,7 @@ def setVar(full_command: str) -> None:
         typ = 'str'
         val = str(val) # It was already a string
         o.system('Type was set to default value: str')
+        o.done('\n')
 
     path = f'var/{var}.json'
     if (os.path.exists(path)):
@@ -106,6 +107,7 @@ def setVar(full_command: str) -> None:
             o.system(f'Closing {path}... ')
         o.done('\n')
         o.system(f'Changed {before} to {val} in {path}')
+        o.done('\n')
     else:
         o.warn(f'The requested variable was empty.')
         o.system(f'Opening {path} in write mode... ')
@@ -114,6 +116,7 @@ def setVar(full_command: str) -> None:
             json.dump(val, variable)
             o.system(f'Closing {path}... ')
         o.done('\n')
+    o.variable(val, var)
 
 
 def echo(full_command: str) -> None:

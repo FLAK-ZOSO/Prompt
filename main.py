@@ -5,7 +5,7 @@ import variables as v
 
 __author__ = 'FLAK-ZOSO'
 __documentation__ = 'https://flak-zoso.github.io/src/repo/Prompt/about.html'
-__version__ = 'v1.1.2'
+__version__ = 'v1.2.0-beta'
 __code__ = f'https://github.com/FLAK-ZOSO/Prompt/tree/{__version__}'
 
 
