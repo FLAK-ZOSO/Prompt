@@ -98,12 +98,17 @@ def main(full_command: str) -> None:
 
     base_path = v.getCurrentPath()
     if (not name):
-        name = o.argument('Name of the folder: ')
+        name: str = o.argument('Name of the folder: ')
     if (not dept):
-        dept = int(o.argument('How many subdirectories will your folder be in? '))
+        dept: str = o.argument('How many subdirectories will your folder be in? ')
     if (not sub):
-        sub = int(o.argument('How many subdirectories will your folder contain? '))
-    dept, sub = [int(i) for i in [dept, sub]]
+        sub: str = o.argument('How many subdirectories will your folder contain? ')
+    
+    if (name.isspace() or not name):
+        o.abort('No given name for the folder')
+        return
+    dept = 0 if (dept.isspace() or not dept) else int(dept)
+    sub = 0 if (sub.isspace() or not sub) else int(sub)
     if (dept or sub):
         print('\n\n')
     
