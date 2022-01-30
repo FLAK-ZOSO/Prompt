@@ -12,16 +12,17 @@ def checkComments(text: str) -> str:
     global comment
     if (comment):
         if ('*\\' in text):
-            text = text.split('*\\')[1]
+            text = text.split('*\\')[1].removeprefix('*\\')
             comment = False
             if ('/*' in text or '*\\' in text):
-                checkComments(text)
+                return checkComments(text)
         else:
             return ''
     else: # There was no previous unclosed comment tag
         if ('/*' in text and '*\\' in text):
-            commented_text: str = re.search('/*(.+?)*\\', text).group(1)
-            text = text.replace(commented_text, '')
+            uncommented = text.split('/*')[0]
+            comment = True
+            return uncommented + checkComments(text.split('/*')[1]) # Recursive call
         elif ('/*' in text):
             commented_text: str = text[text.find('/*'):]
             text = text.removesuffix(commented_text)
@@ -58,4 +59,4 @@ def main(command: str) -> bool:
 
 
 if (__name__ == '__main__'):
-    main()
+    main('')
