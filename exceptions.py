@@ -29,7 +29,7 @@ class CommandException(PromptException):
     This is raised when the user asks for an inexistent command
     '''
     def __init__(self, command: str) -> None:
-        o.error(f"The {command.removesuffix(' ')} command doesn't exist")
+        o.error(f"The {command.split().removesuffix(' ')} command doesn't exist")
 
 
 class ArgumentException(PromptException):
