@@ -8,7 +8,7 @@ def main(command: str) -> bool:
     current_path = v.getCurrentPath()
     commands = c.commands
 
-    if (command == '' or command.isspace()):
+    if (not command or command.isspace()):
         return False
 
     try: # Better ask for forgiveness than for permission

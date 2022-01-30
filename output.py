@@ -1,3 +1,4 @@
+from typing import Any
 from colorama import Back, Fore, Style
 
 
@@ -28,6 +29,10 @@ def system(message: str, end: str=' ') -> None:
 
 def warn(message: str) -> None:
     print(f'{Fore.YELLOW}[WARNING] {message}{Style.RESET_ALL}')
+    
+
+def variable(variable: Any, name: str) -> None:
+    print(f'{Back.LIGHTBLACK_EX}{Fore.LIGHTRED_EX}[VARIABLE] {name}: value={variable} type={type(variable).__name__}{Style.RESET_ALL}')
 
 
 def done(end: str=' ') -> None:

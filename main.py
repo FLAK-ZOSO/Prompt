@@ -5,8 +5,8 @@ import variables as v
 
 __author__ = 'FLAK-ZOSO'
 __documentation__ = 'https://flak-zoso.github.io/src/repo/Prompt/about.html'
-__version__ = 'v1.1.0'
-__code__ = 'https://github.com/FLAK-ZOSO/Prompt/tree/' + __version__
+__version__ = 'v1.1.2'
+__code__ = f'https://github.com/FLAK-ZOSO/Prompt/tree/{__version__}'
 
 
 def start() -> None:

@@ -15,11 +15,11 @@ COMMANDS:
 - 'source': (aliases = ['makeSource'])
 
 COMPLEX COMMANDS:
-- 'directory' (storage = directory.py) # Already imported
+- 'directory' (storage = directory.py) // Already imported
 
 NOTE: Prompt.py isn't case-sensitive for commands' names, camelCase is used in order to increment readability
 
-HELP:
+About command HELP:
 
 help [command => (default='help')]
 

@@ -66,6 +66,8 @@ def createFull(
             else:
                 o.failed()
                 e.FolderPermissionError(f'{path}\{folder}')
+                o.abort('The command has ended without creating the other directories')
+                return (None, False)
 
     o.system('\n\nMAKING REQUIRED FOLDER... ', end='')
     if (createIf(path := f'{path}\{name}')):
@@ -73,6 +75,8 @@ def createFull(
     else:
         o.failed()
         e.FolderPermissionError(f'{path}\{name}')
+        o.abort('The command has ended without creating the other directories')
+        return (None, False)
 
     if (sub):
         o.system('\n\nMAKING SUBDIRECTORIES...\n')
@@ -83,6 +87,8 @@ def createFull(
             else:
                 o.failed()
                 e.FolderPermissionError(f'{path}\{folder}')
+                o.abort('The command has ended without creating the other directories')
+                return (None, False)
 
     return (path, True)
 
@@ -107,15 +113,23 @@ def main(full_command: str) -> None:
     if (name.isspace() or not name):
         o.abort('No given name for the folder')
         return
-    dept = 0 if (dept.isspace() or not dept) else int(dept)
-    sub = 0 if (sub.isspace() or not sub) else int(sub)
+    try:
+        dept = 0 if (dept.isspace() or not dept) else int(dept)
+        sub = 0 if (sub.isspace() or not sub) else int(sub)
+    except ValueError:
+        o.error('One of the arguments has a wrong value')
+        o.variable(dept, 'dept')
+        o.variable(sub, 'sub')
+        o.abort('The command has ended without creating any folder')
+        return
     if (dept or sub):
         print('\n\n')
     
     sup = getSupList(dept)
     sub = getSubList(sub)
-    path, _ = createFull(base_path, name, sup, sub)
-    openFolder(path)
+    path, created = createFull(base_path, name, sup, sub)
+    if (created):
+        openFolder(path)
 
 
 if (__name__ == '__main__'):
