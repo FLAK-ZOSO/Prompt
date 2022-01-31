@@ -14,7 +14,7 @@ def changePath(full_command: str) -> bool:
     try: #EAFP
         new = full_command.split()[1]
     except IndexError:
-        new = o.argument('Specify a value for missing parameter (path): ')
+        new = o.argument('Specify a value for missing argument (path): ')
     new = p.path(new)
     o.system(f'Checking the existence of {new}... ')
     if (not os.path.exists(new)):
@@ -120,7 +120,7 @@ def setVar(full_command: str) -> None:
 
 
 def echo(full_command: str) -> None:
-    print(full_command.removeprefix('echo '))
+    print(' '.join(full_command.split()[1:]))
 
 
 def run(full_command: str) -> None:
