@@ -25,8 +25,9 @@ def checkComments(text: str) -> str:
             commented_text: str = text[text.find('/*'):]
             text = text.removesuffix(commented_text)
             comment = True
-        elif ('*\\' in text):
+        if ('*\\' in text and not comment):
             o.warn('Closing comment character (*\\) found in command without opening comment character')
+            return text
     # Check for inline comments
     if ('//' in text):
         text = text.split('//', 1)[0]
