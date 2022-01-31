@@ -1,4 +1,5 @@
 #!/usr/bin/env Python3
+import os
 import output as o
 import perform as p
 import variables as v
@@ -12,6 +13,8 @@ __version_docs__ = f'https://flak-zoso.github.io/src/repo/Prompt/{__min_version_
 
 
 def start() -> None:
+    # Set cmd current directory
+    os.chdir(__file__.removesuffix('main.py'))
     # Reset default values
     v.resetEcho()
     v.defaultPathAsCurrent()
