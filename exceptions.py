@@ -21,7 +21,6 @@ class DirectoryException(PromptException):
     '''
     def __init__(self, directory: str) -> None:
         print(message := f"{directory} doesn't exist")
-        super().__init__(message)
 
 
 class CommandException(PromptException):

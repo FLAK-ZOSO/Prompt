@@ -5,7 +5,7 @@ import exceptions as e
 import variables as v
 
 
-def main(command: str) -> bool:
+def main(command: str) -> (bool | str):
     current_path = v.getCurrentPath()
     commands = c.commands
 
@@ -22,6 +22,7 @@ def main(command: str) -> bool:
             return True # The main.main function ends
         else:
             e.CommandException(command)
+            return '' # It's False too, but it says that the CommandException was catched
     
     return False # The main.main function re-calls perform.main
 

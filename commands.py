@@ -134,10 +134,14 @@ def echo(full_command: str) -> None:
     print(' '.join(full_command.split()[1:]))
 
 
-def run(full_command: str) -> None:
+def run(full_command: str) -> bool:
     _, path = p.command(full_command, 2)
     if (not path):
         path = o.argument('Specify a value for missing argument (path): ')
+    if (path.isspace() or not path):
+        o.error('No path was provided')
+        o.abort('Command ended without executing any file')
+        return False
     path = p.path(path)
     if (not path.endswith('.txt')):
         path += '.txt'
@@ -146,11 +150,11 @@ def run(full_command: str) -> None:
         o.done()
         o.false()
         e.DirectoryException(path)
-        return
+        return False
     else:
         o.done()
         o.true()
-    s.run(path)
+    return s.run(path)
 
 
 def makeFile(full_command: str) -> bool:
@@ -221,9 +225,9 @@ def makeDirectory(full_command: str) -> None:
         return False
 
 
-def cleanScreen(full_command=None) -> None:
-    for _ in range(4):
-        print('\n' * 10)
+def cleanScreen(full_command: str) -> None:
+    _, lines = p.command(full_command, 2)
+    print('\n' * int(lines)) if lines else print('\n' * 40)
 
 
 def moveFolder(full_command: str) -> None:
@@ -259,12 +263,19 @@ def moveFolder(full_command: str) -> None:
 def loop(full_command: str) -> None:
     _, repetitions, path = p.command(full_command, 3)
     if (not repetitions):
-        repetitions = int(o.argument('Insert value for missing argument (repetitions): '))
+        repetitions = o.argument('Insert value for missing argument (repetitions): ')
     if (not path):
         path = o.argument('Insert value for missing argument (path): ')
+    if (repetitions.isspace() or not repetitions):
+        o.warn('Invalid value for argument (repetitions)')
+        o.system('Value was set to default value: 1')
+        repetitions = '1'
 
     try:
-        [run(f'run {path}') for _ in range(int(repetitions))]
+        for i in range(int(repetitions)):
+            if (not run(f'run {path}')):
+                o.abort(f'Loop aborted after {i+1}th run')
+                return
     except RecursionError:
         o.abort(f'Too many recursive calls occurred')
 

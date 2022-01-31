@@ -1,6 +1,6 @@
 
 
-loop <repetitions: int> <source: str>
+loop <repetitions: int => (1)> <source: str>
 
 (This command gives no output except for the description of the execution of the source file)
 
