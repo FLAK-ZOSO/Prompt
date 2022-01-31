@@ -26,7 +26,7 @@ def changePath(full_command: str) -> bool:
         or new.upper() == v.getCurrentPath().upper().removesuffix('\\')):
         o.done()
         o.true()
-        o.system(f'The {new} path was already selected. No action was performed.')
+        o.system(f'The {new} path was already selected. No action was performed.', '\n')
     else:
         o.done()
         o.false()
@@ -153,17 +153,24 @@ def run(full_command: str) -> None:
     s.run(path)
 
 
-def makeFile(full_command: str) -> None:
+def makeFile(full_command: str) -> bool:
     _, path = p.command(full_command, 2)
     path = p.textFilePath(path)
     o.system(f'Checking the existence of {path}... ')
-    if (d.createFileIf(path)):
-        o.done()
-        o.false()
-    else:
-        o.done()
-        o.true()
-        o.warn(f'{path} was already existing')
+    try:
+        if (d.createFileIf(path)):
+            o.done()
+            o.false()
+        else:
+            o.done()
+            o.true()
+            o.warn(f'{path} was already existing')
+        return True
+    except PermissionError:
+        print('\n')
+        e.PromptPermissionError(f'{path} can\'t be created')
+        o.abort(f'Command ended without creating any file')
+        return False
 
 
 def makeSource(full_command: str) -> None:
@@ -174,7 +181,8 @@ def makeSource(full_command: str) -> None:
         o.abort('No given file name')
         return
 
-    makeFile(f'make {path}')
+    if (not makeFile(f'make {path}')):
+        return
     path = p.textFilePath(path)
     o.system(f'Opening {path} in append mode... ')
     with open(path, 'a') as target:
@@ -198,13 +206,19 @@ def makeDirectory(full_command: str) -> None:
         return
     path = p.path(path)
     o.system(f'Checking if {path} exists... ')
-    if (d.createIf(path)):
-        o.done()
-        o.false()
-        o.system(f'Created {path}', '\n')
-    else:
-        o.done()
-        o.true()
+    try:
+        if (d.createIf(path)):
+            o.done()
+            o.false()
+            o.system(f'Created {path}', '\n')
+        else:
+            o.done()
+            o.true()
+    except PermissionError:
+        print('\n')
+        e.PromptPermissionError(f'{path} can\'t be created')
+        o.abort(f'Command ended without creating any directory')
+        return False
 
 
 def cleanScreen(full_command=None) -> None:
@@ -228,6 +242,7 @@ def moveFolder(full_command: str) -> None:
         new = p.path(new)
     else:
         e.DirectoryException(new)
+        o.abort(f'Command ended without moving any directory')
         return
 
     if (os.path.exists(f_)):
