@@ -3,3 +3,11 @@ setVar age 18 int
 echo Test
 
 setVar age 10 int
+
+// One day this will work too
+/*
+setVar
+age
+14
+int
+*\

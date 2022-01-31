@@ -72,6 +72,15 @@ def setVar(full_command: str) -> None:
         val = o.argument('Value of your variable: ')
     if (not typ):
         typ = o.argument('Type of your variable: ')
+        
+    if (var.isspace() or not var):
+        o.abort('No given variable')
+        return
+    if (val.isspace() or not val):
+        o.warn(f'No given value')
+        o.system('Value was set to default value: None')
+        val = 'None'
+    o.variable(val, 'value')
     
     if (typ.lower() in v.types.keys()):
         if (typ.lower() == 'bool'):
@@ -86,9 +95,11 @@ def setVar(full_command: str) -> None:
                     val = True
         val = v.types[typ.lower()](val)
     else:
-        o.warn(f'Type {typ} not found')
+        if (typ.isspace() or not typ):
+            o.warn(f'No given type')
+        else:
+            o.warn(f'Type {typ} not found')
         typ = 'str'
-        val = str(val) # It was already a string
         o.system('Type was set to default value: str')
         o.done('\n')
 
@@ -100,11 +111,11 @@ def setVar(full_command: str) -> None:
             before = json.load(variable)
             o.system(f'Closing {path}... ')
         o.done('\n')
-        o.system(f'Opening {path} in write mode... ')
+        o.system(f'Opening {path} in write mode...')
         with open(path, 'w') as variable:
             o.done('\n')
             json.dump(val, variable)
-            o.system(f'Closing {path}... ')
+            o.system(f'Closing {path}...')
         o.done('\n')
         o.system(f'Changed {before} to {val} in {path}')
         o.done('\n')
@@ -158,7 +169,10 @@ def makeFile(full_command: str) -> None:
 def makeSource(full_command: str) -> None:
     _, path = p.command(full_command, 2)
     if (not path):
-        path = o.argument('Insert missing argument (file-name): ')
+        path: str = o.argument('Insert missing argument (file-name): ')
+    if (path.isspace() or not path):
+        o.abort('No given file name')
+        return
 
     makeFile(f'make {path}')
     path = p.textFilePath(path)
@@ -167,7 +181,7 @@ def makeSource(full_command: str) -> None:
         o.done('\n')
         for i in range(200): # 200 is the maximum of lines
             line = input(f'{i}: ')
-            if (not line): # An empty line ends the command
+            if (line.isspace() or not line): # An empty line ends the command
                 target.write('\n')
                 break
             target.write(f'{line}\n')
@@ -179,6 +193,9 @@ def makeDirectory(full_command: str) -> None:
     _, path = p.command(full_command, 2)
     if (not path):
         path = o.argument('Insert missing argument (path): ')
+    if (path.isspace() or not path):
+        o.abort('No given path')
+        return
     path = p.path(path)
     o.system(f'Checking if {path} exists... ')
     if (d.createIf(path)):
@@ -197,8 +214,14 @@ def cleanScreen(full_command=None) -> None:
 
 def moveFolder(full_command: str) -> None:
     _, f, new = p.command(full_command, 3)
-    f = f if f else o.argument('Insert missing argument (file/folder): ')
-    new = new if new else o.argument('Insert missing argument (new-path): ')
+    f: str = f if f else o.argument('Insert missing argument (file/folder): ')
+    new: str = new if new else o.argument('Insert missing argument (new-path): ')
+    if (f.isspace() or not f):
+        o.abort('No given file or folder')
+        return
+    if (new.isspace() or not new):
+        o.abort('No given new path')
+        return
 
     f_ = p.path(f)
     if (os.path.exists(new)):
@@ -234,7 +257,7 @@ def loop(full_command: str) -> None:
 commands = {
     'cd': changePath,
     'cls': cleanScreen,
-    'directory': d.main, # Complex command stored in module directory
+    'directory': d.main, # Complex command stored in directory.py
     'echo': echo,
     'help': promptHelp,
     'loop': loop,
