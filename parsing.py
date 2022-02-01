@@ -53,11 +53,11 @@ def memoryUnit(path: str) -> bool:
 
 
 def textFilePath(path_: str) -> str:
-    if ('\\' in path_):    
+    if ('\\' in path_):
         file = path_.split('\\')[-1]
         path_ = path_.removesuffix(f'\\{file}')
         path_ = path(path_)
-        path_ += file
+        path_ += f'\\{file}'
     else:
         path_ = f'{v.getCurrentPath()}\\{path_}'
     if (not path_.endswith('.txt')):
