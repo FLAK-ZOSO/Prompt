@@ -1,6 +1,6 @@
 
 
-setVar <variable-name: str> <value: Any> [type: type => str] (aliases=['@'])
+setVar <variable-name: str> <value: Any> [type: type => (str)] (aliases=['@'])
 
 (This command gives no output except for the description of the execution)
 

@@ -1,0 +1,11 @@
+
+
+directory <central-folder-name: str> [dept: int => (0)] [number-of-subdirectories: int => (0)]
+
+(This command gives no output except for the description of the execution)
+
+This is used to create a linear succession of nested folders
+
+NOTE: The command needs some more inputs after specifying the number of directories
+NOTE: The base path is the current path selected in the prompt when starting the command
+
