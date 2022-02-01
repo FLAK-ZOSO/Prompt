@@ -6,22 +6,18 @@ import variables as v
 
 
 def main(command: str) -> (bool | str):
-    current_path = v.getCurrentPath()
-    commands = c.commands
-
     command = comm.checkComments(command)
-    if (not command or command.isspace()):
+    if (command.isspace() or not command):
         return False
 
     try: # Better ask for forgiveness than for permission
-        commands[command.split()[0].lower()](command)
-        command = command.split()[0].lower()
+        c.commands[cmd := command.split()[0].lower()](command)
     except KeyError:
-        if (command in ['close', 'end', 'exit', 'quit']):
-            c.close(current_path)
+        if (cmd in ['close', 'end', 'exit', 'quit']):
+            c.close(v.getCurrentPath())
             return True # The main.main function ends
         else:
-            e.CommandException(command)
+            e.CommandException(cmd)
             return '' # It's False too, but it says that the CommandException was catched
     
     return False # The main.main function re-calls perform.main
