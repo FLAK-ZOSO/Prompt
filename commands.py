@@ -53,15 +53,18 @@ def promptHelp(full_command: str=None) -> None:
     if (not command):
         command = 'help'
     command = command.lower()
-    if (command not in commands.keys()):
+    if (command not in commands.keys() and command not in synonims.keys()):
         o.abort(f'{command} is not an existing command')
         return
     if (os.path.exists(f'help/{command}.txt')):
         with open(f'help/{command}.txt', 'r') as file:
             print(file.read())
-    else:
+        return
+    try:
         with open(f'help/{synonims[command]}.txt', 'r') as file:
             print(file.read())
+    except KeyError:
+        o.abort(f'Command {command} exists, but its usage instruction weren\'t provided.')
 
 
 def setVar(full_command: str) -> None:
