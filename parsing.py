@@ -40,7 +40,7 @@ def path(path_: str) -> str:
     matches = bool(pattern1.match(path_) or pattern2.match(path_))
     if (matches or memoryUnit(path_)):
         return capitalizePath(path_) # Absolute path
-    return f'{v.getCurrentPath()}\{path_}' # Relative path
+    return f'{v.getCurrentPath()}\{path_.capitalize()}' # Relative path
 
 
 def memoryUnit(path: str) -> bool:
