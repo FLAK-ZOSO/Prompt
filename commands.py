@@ -35,17 +35,19 @@ def changePath(full_command: str) -> bool:
     return True
 
 
-def close(current_path: str) -> None:
-    if (current_path == v.getDefaultPath()):
+def close(full_command: str=None) -> None:
+    current = v.getCurrentPath()
+    default = v.getDefaultPath()
+    if (current == default):
         return
     o.question(
-        f'Do you want to have back {current_path} instead of {v.getDefaultPath()}' 
+        f'Do you want to have back {current} instead of {default}' 
         ' as your path for the next run? (y/n)'
     )
     if (p.answer(o.question('> '))):
         v.currentPathAsDefault()
     else:
-        o.system(f'The default path will remain {v.getDefaultPath()}')
+        o.system(f'The default path will remain {default}')
 
 
 def promptHelp(full_command: str=None) -> None:
@@ -69,12 +71,9 @@ def promptHelp(full_command: str=None) -> None:
 
 def setVar(full_command: str) -> None:
     _, var, val, typ = p.command(full_command, 4)
-    if (not var):
-        var = o.argument('Name of your variable: ')
-    if (not val):
-        val = o.argument('Value of your variable: ')
-    if (not typ):
-        typ = o.argument('Type of your variable: ')
+    var = var if var else o.argument('Name of your variable: ')
+    val = val if val else o.argument('Value of your variable: ')
+    typ = typ if typ else o.argument('Type of your variable: ')
         
     if (var.isspace() or not var):
         o.abort('No given variable')
@@ -162,6 +161,11 @@ def run(full_command: str) -> bool:
 
 def makeFile(full_command: str) -> bool:
     _, path = p.command(full_command, 2)
+    path = path if path else o.argument('Specify a value for missing argument (path): ')
+    if (path.isspace() or not path):
+        o.error('No path was provided')
+        o.abort('Command ended without creating any file')
+        return False
     path = p.textFilePath(path)
     o.system(f'Checking the existence of {path}... ')
     try:
@@ -285,9 +289,12 @@ def loop(full_command: str) -> None:
 
 commands = {
     'cd': changePath,
+    'close': close,
     'cls': cleanScreen,
     'directory': d.main, # Complex command stored in directory.py
     'echo': echo,
+    'end': close,
+    'exit': close,
     'help': promptHelp,
     'loop': loop,
     'makedir': makeDirectory,
@@ -295,6 +302,7 @@ commands = {
     'makesource': makeSource,
     'move': moveFolder,
     'path': changePath,
+    'quit': close,
     'run': run,
     'setvar': setVar,
     'source': makeSource,
