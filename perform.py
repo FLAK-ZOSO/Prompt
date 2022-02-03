@@ -2,7 +2,6 @@
 import commands as c
 import comments as comm
 import exceptions as e
-import variables as v
 
 
 def main(command: str) -> (bool | str):
@@ -13,13 +12,11 @@ def main(command: str) -> (bool | str):
     try: # Better ask for forgiveness than for permission
         c.commands[cmd := command.split()[0].lower()](command)
     except KeyError:
-        if (cmd in ['close', 'end', 'exit', 'quit']):
-            c.close(v.getCurrentPath())
-            return True # The main.main function ends
-        else:
-            e.CommandException(cmd)
-            return '' # It's False too, but it says that the CommandException was catched
+        e.CommandException(cmd)
+        return '' # It's False too, but it says that the CommandException was catched
     
+    if (cmd in ['close', 'end', 'exit', 'quit']):
+        return True # The main.main function ends
     return False # The main.main function re-calls perform.main
 
 
