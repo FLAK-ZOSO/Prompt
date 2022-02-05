@@ -249,6 +249,7 @@ def moveFolder(full_command: str) -> None:
         return
 
     f_ = p.path(f)
+    new = p.path(new)
     if (os.path.exists(new)):
         new = p.path(new)
     else:
@@ -257,11 +258,15 @@ def moveFolder(full_command: str) -> None:
         return
 
     if (os.path.exists(f_)):
-        des = f'{new}\\{f}'
-        des_ = p.removeLastFromPath(des)
-        o.system(f'Creating {des}... [DONE]') if d.createIf(des_) else None
-        o.system(f'Moving everything to {des}... ')
-        sh.move(f_, des)
+        new_ = p.removeLastFromPath(new)
+        o.system(f'Creating {new}... [DONE]') if d.createIf(new_) else None
+        o.system(f'Moving everything to {new}... ')
+        try:
+            sh.move(f_, new)
+        except PermissionError:
+            e.PromptPermissionError(new)
+            o.warn('Some file may miss in the moved directory')
+            o.abort('After an error raised, the command has ended')
         o.done('\n')
     else:
         e.DirectoryException(f_)

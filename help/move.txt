@@ -5,8 +5,9 @@ move <folder-or-file: str> <new-directory: str>
 (This command gives no output except for the description of the execution)
 
 This is used to move a file or a folder to another directory.
-NOTE: You can use both absolute and relative path
-NOTE: You MUST add file extension when renaming file
+NOTE: You can use both absolute and relative path for folder-or-file
+NOTE: You MUST use relative path for new-directory
+NOTE: You MUST add file extension when renaming files
 
 
 EXAMPLE:
@@ -20,7 +21,7 @@ dir/
 └──── js/
        └── button.js
 
-D:\\dir> move subdir/div.js js
+D:\\dir> move subdir\div.js js
 
 dir/
 |
