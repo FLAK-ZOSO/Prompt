@@ -15,10 +15,15 @@ def changePath(full_command: str) -> bool:
         new = full_command.split()[1]
     except IndexError:
         new = o.argument('Specify a value for missing argument (path): ')
+    if (new.isspace() or not new):
+        o.warn('No given path')
+        o.abort('The path wasn\'t changed')
+        return False
     new = p.path(new)
     o.system(f'Checking the existence of {new}... ')
     if (not os.path.exists(new)):
         o.failed()
+        o.abort('The path wasn\'t changed')
         return False
     o.done('\n')
     o.system(f'Checking if {new} and {v.getCurrentPath()} are different... ')
