@@ -239,7 +239,7 @@ def makeDirectory(full_command: str) -> None:
 
 def cleanScreen(full_command: str) -> None:
     _, lines = p.command(full_command, 2)
-    print('\n' * int(lines)) if lines else print('\n' * 40)
+    print('\n' * int(lines)) if lines else os.system("cls")
 
 
 def moveFolder(full_command: str) -> None:
